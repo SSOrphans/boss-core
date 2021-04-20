@@ -29,6 +29,11 @@
     </dependency>
     <dependency>
       <groupId>org.ssor</groupId>
+      <artifactId>boss-exceptions</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ssor</groupId>
       <artifactId>boss-repositories</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
@@ -69,6 +74,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.4.4</version>
         <configuration>
           <excludes>
             <exclude>
