@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.ssor.boss.exception.NoSuchUserException;
+import org.ssor.boss.exception.UserAlreadyExistsException;
 import org.ssor.boss.transfer.RegisterUserInput;
 import org.ssor.boss.transfer.RegisterUserOutput;
 import org.ssor.boss.transfer.SecureUserDetails;
@@ -83,10 +84,13 @@ public class UserService implements UserDetailsService
    * @return The result of registering a new user.
    */
   public RegisterUserOutput registerNewUser(@Valid @NotNull RegisterUserInput registerUserInput,
-                                            @NotNull LocalDateTime created)
+                                            @NotNull LocalDateTime created) throws UserAlreadyExistsException
   {
     final var username = registerUserInput.getUsername();
     final var email = registerUserInput.getEmail();
+    if (userRepository.existsUserByUsernameOrEmail(username, email))
+      throw new UserAlreadyExistsException();
+
     final var password = registerUserInput.getPassword();
     final var user = new User(null, USER_DEFAULT, 1, username, email, password, created, null, false, false);
     final var result = userRepository.save(user);

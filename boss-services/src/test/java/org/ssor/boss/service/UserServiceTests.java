@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.ssor.boss.exception.NoSuchUserException;
+import org.ssor.boss.exception.UserAlreadyExistsException;
 import org.ssor.boss.transfer.RegisterUserInput;
 import org.ssor.boss.transfer.RegisterUserOutput;
 import org.ssor.boss.transfer.SecureUserDetails;
@@ -25,8 +26,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.ssor.boss.entity.UserType.USER_DEFAULT;
 
@@ -136,6 +137,26 @@ public class UserServiceTests
     verify(userRepository).save(captor.capture());
     assertThat(captor.getValue()).isEqualTo(newUser);
     assertThat(result).isEqualTo(output);
+  }
+
+  @Test
+  void test_RegisterNewUser_ThrowsUserAlreadyExists_WithExistingUserUsernameOrEmail()
+  {
+    final var username = "SoraKatadzuma";
+    final var email = "sorakatadzuma@gmail.com";
+    final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
+    final var created = LocalDateTime.now();
+    doReturn(true).when(userRepository).existsUserByUsernameOrEmail(eq(username), eq(email));
+
+    final var usernameCaptor = ArgumentCaptor.forClass(String.class);
+    final var emailCaptor = ArgumentCaptor.forClass(String.class);
+    assertThatThrownBy(() -> userService.registerNewUser(input, created))
+      .isInstanceOf(UserAlreadyExistsException.class).hasMessage("User with username or email already exists");
+
+    verify(userRepository).existsUserByUsernameOrEmail(usernameCaptor.capture(), emailCaptor.capture());
+    assertThat(usernameCaptor.getValue()).isEqualTo(username);
+    assertThat(emailCaptor.getValue()).isEqualTo(email);
+    verify(userRepository, never()).save(any());
   }
 
   @Test
