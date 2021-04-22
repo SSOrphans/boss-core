@@ -20,14 +20,6 @@
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
-  <modules>
-    <module>boss-entities</module>
-    <module>boss-exceptions</module>
-    <module>boss-repositories</module>
-    <module>boss-services</module>
-    <module>boss-transfers</module>
-  </modules>
-
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
