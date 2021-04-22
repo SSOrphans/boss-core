@@ -6,9 +6,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.ssor.boss.dto.ApiRequestResponse;
 import org.ssor.boss.dto.RegisterUserInput;
 import org.ssor.boss.dto.RegisterUserOutput;
 import org.ssor.boss.dto.SecureUserDetails;
+import org.ssor.boss.dto.UpdateUserInput;
 import org.ssor.boss.entity.User;
 import org.ssor.boss.repository.UserRepository;
 import javax.validation.Valid;
@@ -66,6 +68,17 @@ public class UserService implements UserDetailsService
     output.setEmail(result.getEmail());
     output.setCreated(result.getCreated());
     return output;
+  }
+
+  /**
+   * Updates a user profile with the new information.
+   *
+   * @param updateUserInput The new information for the user profile.
+   * @return
+   */
+  public ApiRequestResponse updateUserProfile(@Valid @NotNull UpdateUserInput updateUserInput)
+  {
+
   }
 
   /**
