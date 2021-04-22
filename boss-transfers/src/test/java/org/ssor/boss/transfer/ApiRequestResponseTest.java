@@ -1,4 +1,4 @@
-package org.ssor.boss.dto;
+package org.ssor.boss.transfer;
 
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;

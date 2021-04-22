@@ -1,4 +1,4 @@
-package org.ssor.boss.dto;
+package org.ssor.boss.transfer;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
