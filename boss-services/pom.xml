@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
       <groupId>org.ssor</groupId>
-      <artifactId>boss-dtos</artifactId>
+      <artifactId>boss-transfers</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>

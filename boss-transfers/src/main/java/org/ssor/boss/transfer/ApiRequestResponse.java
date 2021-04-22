@@ -1,4 +1,4 @@
-package org.ssor.boss.dto;
+package org.ssor.boss.transfer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

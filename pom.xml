@@ -21,11 +21,11 @@
   </properties>
 
   <modules>
-    <module>boss-dtos</module>
     <module>boss-entities</module>
     <module>boss-exceptions</module>
     <module>boss-repositories</module>
     <module>boss-services</module>
+    <module>boss-transfers</module>
   </modules>
 
   <dependencies>
