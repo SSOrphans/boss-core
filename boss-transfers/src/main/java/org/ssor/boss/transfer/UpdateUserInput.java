@@ -22,6 +22,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UpdateUserInput
 {
+  private int userId;
+
   // TODO:
   //   decide how and if we should allow users to update their branch.
 

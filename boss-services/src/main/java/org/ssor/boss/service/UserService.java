@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.ssor.boss.transfer.ApiRequestResponse;
+import org.ssor.boss.exception.NoSuchUserException;
 import org.ssor.boss.transfer.RegisterUserInput;
 import org.ssor.boss.transfer.RegisterUserOutput;
 import org.ssor.boss.transfer.SecureUserDetails;
@@ -16,7 +16,9 @@ import org.ssor.boss.repository.UserRepository;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import static org.ssor.boss.entity.UserType.USER_DEFAULT;
 
 /**
@@ -42,6 +44,35 @@ public class UserService implements UserDetailsService
     if (result.isEmpty())
       throw new UsernameNotFoundException("User with username or email not found");
     return result.get();
+  }
+
+  /**
+   * Obtains all users in an unsecure format.
+   * <p>
+   *   Gets all the users from the repository without converting them to a {@link SecureUserDetails}. This function is
+   *   designed to be used by an administration request and not a vendor request.
+   * </p>
+   *
+   * @return All the current users from the repository.
+   */
+  public List<User> getAllUsersUnsecure()
+  {
+    return userRepository.findAll();
+  }
+
+  /**
+   * Obtains all users in a secure format.
+   * <p>
+   *   Gets all the users from the repository and converts them to a {@link SecureUserDetails}. This function allows
+   *   non-administrative users to get information about other users.
+   * </p>
+   *
+   * @return All the current users from the repository converted to {@link SecureUserDetails}.
+   */
+  public List<SecureUserDetails> getAllUsersSecure()
+  {
+    final var users = userRepository.findAll();
+    return users.stream().map(SecureUserDetails::new).collect(Collectors.toUnmodifiableList());
   }
 
   /**
@@ -74,11 +105,22 @@ public class UserService implements UserDetailsService
    * Updates a user profile with the new information.
    *
    * @param updateUserInput The new information for the user profile.
-   * @return
+   * @return An string detailing the transaction result.
    */
-  public ApiRequestResponse updateUserProfile(@Valid @NotNull UpdateUserInput updateUserInput)
+  public String updateUserProfile(@Valid @NotNull UpdateUserInput updateUserInput)
+    throws NoSuchUserException
   {
-    return null;
+    final var userId = updateUserInput.getUserId();
+    final var optionalUser = userRepository.findById(userId);
+    if (optionalUser.isEmpty())
+      throw new NoSuchUserException(userId);
+
+    final var user = optionalUser.get();
+    user.setUsername(updateUserInput.getUsername());
+    user.setEmail(updateUserInput.getEmail());
+    user.setPassword(updateUserInput.getPassword());
+    userRepository.save(user);
+    return "User profile updated";
   }
 
   /**

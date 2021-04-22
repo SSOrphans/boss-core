@@ -9,19 +9,23 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.ssor.boss.exception.NoSuchUserException;
 import org.ssor.boss.transfer.RegisterUserInput;
 import org.ssor.boss.transfer.RegisterUserOutput;
 import org.ssor.boss.transfer.SecureUserDetails;
 import org.ssor.boss.entity.User;
 import org.ssor.boss.repository.UserRepository;
+import org.ssor.boss.transfer.UpdateUserInput;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.ssor.boss.entity.UserType.USER_DEFAULT;
@@ -92,6 +96,27 @@ public class UserServiceTests
   }
 
   @Test
+  void test_GetAllUsersUnsecure_GetsAllUsers()
+  {
+    doReturn(mockUsers).when(userRepository).findAll();
+
+    final var users = userService.getAllUsersUnsecure();
+    verify(userRepository).findAll();
+    assertThat(users).isEqualTo(mockUsers);
+  }
+
+  @Test
+  void test_GetAllUsersSecure_GetsAllUsers()
+  {
+    final var secureUsers = mockUsers.stream().map(SecureUserDetails::new).collect(Collectors.toUnmodifiableList());
+    doReturn(mockUsers).when(userRepository).findAll();
+
+    final var users = userService.getAllUsersSecure();
+    verify(userRepository).findAll();
+    assertThat(users).isEqualTo(secureUsers);
+  }
+
+  @Test
   void test_RegisterNewUser_RegistersUserSuccessfully()
   {
     final var username = "Nobody";
@@ -111,6 +136,33 @@ public class UserServiceTests
     verify(userRepository).save(captor.capture());
     assertThat(captor.getValue()).isEqualTo(newUser);
     assertThat(result).isEqualTo(output);
+  }
+
+  @Test
+  void test_UpdateUserProfile_UpdatesUserProfileSuccessfully()
+  {
+    final var updateInput = new UpdateUserInput(1, "Manchico", "man.chico@gmail.com", FAKE_PASSWORD);
+    final var getUser = mockUsers.get(0);
+    doReturn(Optional.of(getUser)).when(userRepository).findById(eq(1));
+
+    final var captor = ArgumentCaptor.forClass(int.class);
+    final var result = userService.updateUserProfile(updateInput);
+    verify(userRepository).findById(captor.capture());
+    assertThat(captor.getValue()).isEqualTo(1);
+    assertThat(result).isEqualTo("User profile updated");
+  }
+
+  @Test
+  void test_UpdateUserProfile_ThrowsNoSuchUserException_WithInvalidId()
+  {
+    final var updateInput = new UpdateUserInput(5, "", "", "");
+    doReturn(Optional.empty()).when(userRepository).findById(eq(5));
+
+    final var captor = ArgumentCaptor.forClass(int.class);
+    assertThatThrownBy(() -> userService.updateUserProfile(updateInput)).isInstanceOf(NoSuchUserException.class)
+                                                                        .hasMessage("No such user with id 5");
+    verify(userRepository).findById(captor.capture());
+    assertThat(captor.getValue()).isEqualTo(5);
   }
 
   @Test
@@ -178,5 +230,16 @@ public class UserServiceTests
     verify(userRepository).findById(1);
     verify(userRepository).save(any());
     assertThat(mockUsers).contains(user);
+  }
+
+  @Test
+  void test_DeleteUserWithId_DoesNothingWithInvalidId()
+  {
+    doReturn(Optional.empty()).when(userRepository).findById(eq(5));
+    userService.deleteUserWithId(5);
+
+    final var captor = ArgumentCaptor.forClass(int.class);
+    verify(userRepository).findById(captor.capture());
+    assertThat(captor.getValue()).isEqualTo(5);
   }
 }

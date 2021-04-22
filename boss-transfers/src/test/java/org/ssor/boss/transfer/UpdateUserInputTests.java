@@ -31,7 +31,7 @@ public class UpdateUserInputTests
   @Test
   void test_CanCreateWithAllParametersAndGetProperties()
   {
-    updateUserInput1 = new UpdateUserInput(USER_NAME, EMAIL, FAKE_PASSWORD);
+    updateUserInput1 = new UpdateUserInput(1, USER_NAME, EMAIL, FAKE_PASSWORD);
     assertThat(updateUserInput1).isNotNull();
     assertThat(updateUserInput1.getUsername()).isEqualTo(USER_NAME);
     assertThat(updateUserInput1.getEmail()).isEqualTo(EMAIL);
@@ -42,6 +42,9 @@ public class UpdateUserInputTests
   void test_CanAssignWithSettersAndRetrieveWithGetters()
   {
     updateUserInput1 = new UpdateUserInput();
+    assertThat(updateUserInput1).isNotNull();
+
+    updateUserInput1.setUserId(1);
     updateUserInput1.setUsername(USER_NAME);
     updateUserInput1.setEmail(EMAIL);
     updateUserInput1.setPassword(FAKE_PASSWORD);
@@ -53,8 +56,8 @@ public class UpdateUserInputTests
   @Test
   void test_CanCreateWithBuilder()
   {
-    updateUserInput1 = UpdateUserInput.builder().username(USER_NAME).email(EMAIL).password(FAKE_PASSWORD)
-                                          .build();
+    updateUserInput1 = UpdateUserInput.builder().userId(1).username(USER_NAME).email(EMAIL).password(FAKE_PASSWORD)
+                                      .build();
     assertThat(updateUserInput1).isNotNull();
     assertThat(updateUserInput1.getUsername()).isEqualTo(USER_NAME);
     assertThat(updateUserInput1.getEmail()).isEqualTo(EMAIL);
@@ -64,9 +67,9 @@ public class UpdateUserInputTests
   @Test
   void test_CanCompareWithEquals()
   {
-    updateUserInput1 = new UpdateUserInput(USER_NAME, EMAIL, FAKE_PASSWORD);
-    updateUserInput2 = new UpdateUserInput("SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD);
-    updateUserInput3 = new UpdateUserInput(USER_NAME, EMAIL, FAKE_PASSWORD);
+    updateUserInput1 = new UpdateUserInput(1, USER_NAME, EMAIL, FAKE_PASSWORD);
+    updateUserInput2 = new UpdateUserInput(2, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD);
+    updateUserInput3 = new UpdateUserInput(1, USER_NAME, EMAIL, FAKE_PASSWORD);
     assertThat(updateUserInput1).isNotEqualTo(updateUserInput2);
     assertThat(updateUserInput1).isEqualTo(updateUserInput3);
   }
@@ -74,9 +77,9 @@ public class UpdateUserInputTests
   @Test
   void test_CanCompareWithHashcode()
   {
-    updateUserInput1 = new UpdateUserInput(USER_NAME, EMAIL, FAKE_PASSWORD);
-    updateUserInput2 = new UpdateUserInput("SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD);
-    updateUserInput3 = new UpdateUserInput(USER_NAME, EMAIL, FAKE_PASSWORD);
+    updateUserInput1 = new UpdateUserInput(1, USER_NAME, EMAIL, FAKE_PASSWORD);
+    updateUserInput2 = new UpdateUserInput(2, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD);
+    updateUserInput3 = new UpdateUserInput(1, USER_NAME, EMAIL, FAKE_PASSWORD);
     assertThat(updateUserInput1.hashCode()).isNotEqualTo(updateUserInput2.hashCode());
     assertThat(updateUserInput1.hashCode()).isEqualTo(updateUserInput3.hashCode());
   }

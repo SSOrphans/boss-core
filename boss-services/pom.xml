@@ -16,12 +16,17 @@
   <dependencies>
     <dependency>
       <groupId>org.ssor</groupId>
-      <artifactId>boss-transfers</artifactId>
+      <artifactId>boss-exceptions</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.ssor</groupId>
       <artifactId>boss-repositories</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ssor</groupId>
+      <artifactId>boss-transfers</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
