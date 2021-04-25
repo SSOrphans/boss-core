@@ -5,13 +5,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.entity.UserType;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SecureUserDetailsTests
 {
   static final String USER_NAME = "LeftRuleMatters";
-  static final LocalDateTime CREATED = LocalDateTime.now();
+  static final long CREATED = Instant.now().toEpochMilli();
   static SecureUserDetails secureUserDetails1;
   static SecureUserDetails secureUserDetails2;
   static SecureUserDetails secureUserDetails3;
@@ -34,7 +35,7 @@ public class SecureUserDetailsTests
   @Test
   void test_CanCreateWithAllParametersAndGetProperties()
   {
-    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED);
+    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED, null);
     assertThat(secureUserDetails1).isNotNull();
     assertThat(secureUserDetails1.getId()).isEqualTo(1);
     Assertions.assertThat(secureUserDetails1.getType()).isEqualTo(UserType.USER_DEFAULT);
@@ -92,9 +93,9 @@ public class SecureUserDetailsTests
   @Test
   void test_CanCompareWithEquals()
   {
-    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED);
-    secureUserDetails2 = new SecureUserDetails(2, UserType.USER_DEFAULT, 1, "Fish", CREATED);
-    secureUserDetails3 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED);
+    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED, null);
+    secureUserDetails2 = new SecureUserDetails(2, UserType.USER_DEFAULT, 1, "Fish", CREATED, null);
+    secureUserDetails3 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED, null);
     assertThat(secureUserDetails2).isNotEqualTo(secureUserDetails1);
     assertThat(secureUserDetails3).isEqualTo(secureUserDetails1);
   }
@@ -102,9 +103,9 @@ public class SecureUserDetailsTests
   @Test
   void test_CanCompareWithHashCode()
   {
-    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED);
-    secureUserDetails2 = new SecureUserDetails(2, UserType.USER_DEFAULT, 1, "Fish", CREATED);
-    secureUserDetails3 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED);
+    secureUserDetails1 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED, null);
+    secureUserDetails2 = new SecureUserDetails(2, UserType.USER_DEFAULT, 1, "Fish", CREATED, null);
+    secureUserDetails3 = new SecureUserDetails(1, UserType.USER_DEFAULT, 1, USER_NAME, CREATED, null);
     assertThat(secureUserDetails2.hashCode()).isNotEqualTo(secureUserDetails1.hashCode());
     assertThat(secureUserDetails3.hashCode()).isEqualTo(secureUserDetails1.hashCode());
   }

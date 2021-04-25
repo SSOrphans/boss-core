@@ -35,9 +35,9 @@ public class RegisterUserInput implements Serializable
   @NotBlank(message = "Please provide a valid email")
   private String email;
 
-  @Size(min = 64, max = 64)
-  @Pattern(regexp = "^(([0-9]+[a-fA-F]+)|([a-fA-F]+[0-9]+))+[0-9a-fA-F]*$")
-  @NotBlank(message = "The provided password hash must not be blank")
+  @Size(min = 8)
+  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+  @NotBlank(message = "Please provide a valid password")
   private String password;
 }
 
