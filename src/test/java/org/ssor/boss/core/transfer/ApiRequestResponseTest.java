@@ -1,7 +1,6 @@
 package org.ssor.boss.core.transfer;
 
 import org.junit.jupiter.api.Test;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +19,7 @@ public class ApiRequestResponseTest
   @Test
   void test_CanCreateApiRequestResponse_WithAllParameters()
   {
-    final var timestamp = Instant.now().toEpochMilli();
+    final var timestamp = LocalDateTime.now();
     final var validationErrors = new HashMap<String, String>();
     final var status = OK.value();
     final var reason = OK.getReasonPhrase();
@@ -37,7 +36,7 @@ public class ApiRequestResponseTest
   @Test
   void test_CanCreateApiRequestResponse_WithBuilder()
   {
-    final var timestamp = Instant.now().toEpochMilli();
+    final var timestamp = LocalDateTime.now();
     final var validationErrors = new HashMap<String, String>();
     final var status = OK.value();
     final var reason = OK.getReasonPhrase();
@@ -58,7 +57,7 @@ public class ApiRequestResponseTest
     final var response = new ApiRequestResponse();
     assertThat(response).isNotNull();
 
-    final var timestamp = Instant.now().toEpochMilli();
+    final var timestamp = LocalDateTime.now();
     final var validationErrors = new HashMap<String, String>();
     final var status = OK.value();
     final var reason = OK.getReasonPhrase();
@@ -79,7 +78,7 @@ public class ApiRequestResponseTest
   @Test
   void test_CanCompare_WithEquals()
   {
-    final var timestamp = Instant.now().toEpochMilli();
+    final var timestamp = LocalDateTime.now();
     final var validationErrors = new HashMap<String, String>();
     final var status = OK.value();
     final var reason = OK.getReasonPhrase();
@@ -93,7 +92,7 @@ public class ApiRequestResponseTest
   @Test
   void test_CanCompare_WithHashCode()
   {
-    final var timestamp = Instant.now().toEpochMilli();
+    final var timestamp = LocalDateTime.now();
     final var validationErrors = new HashMap<String, String>();
     final var status = OK.value();
     final var reason = OK.getReasonPhrase();

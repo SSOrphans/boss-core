@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import static org.ssor.boss.core.entity.UserType.USER_DEFAULT;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +16,7 @@ public class UserTests
   static final String USER_NAME = "username";
   static final String EMAIL = "me@example.com";
   static final String FAKE_PASSWORD = "b7aa75b24ace50c798eea4fe4ed0e36136032a438b43b0042b3ffe3a422d13ab";
-  static final long CREATED = Instant.now().toEpochMilli();
+  static final LocalDateTime CREATED = LocalDateTime.now();
   static final GrantedAuthority AUTHORITY = new SimpleGrantedAuthority(TYPE_ID.name());
 
   static User user1;

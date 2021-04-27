@@ -21,7 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ApiRequestResponse
 {
-  private long timestamp;
+  private LocalDateTime timestamp;
   private int status;
   private String reason;
   private String message;

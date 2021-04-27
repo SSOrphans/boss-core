@@ -19,7 +19,6 @@ import org.ssor.boss.core.transfer.RegisterUserInput;
 import org.ssor.boss.core.transfer.RegisterUserOutput;
 import org.ssor.boss.core.transfer.SecureUserDetails;
 import org.ssor.boss.core.transfer.UpdateUserInput;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +46,7 @@ public class UserServiceTests
   void setUp()
   {
     // Populate fake users.
-    final var created = Instant.now().toEpochMilli();
+    final var created = LocalDateTime.now();
     final var user1 = new User(1, UserType.USER_DEFAULT, 1, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD, created, null, true, false);
     final var user2 = new User(2, UserType.USER_DEFAULT, 1, "Monkey", "monkey@gmail.com", FAKE_PASSWORD, created, null, true, false);
     final var user3 = new User(3, UserType.USER_DEFAULT, 1, "Fish", "fish@gmail.com", FAKE_PASSWORD, created, null, true, false);
@@ -125,11 +124,10 @@ public class UserServiceTests
     final var username = "Nobody";
     final var email = "you@me.com";
     final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
-    final var created = Instant.now();
-    final var milli = created.toEpochMilli();
-    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
-    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
-    final var output = new RegisterUserOutput(5, UserType.USER_DEFAULT.index(), 1, username, email, milli);
+    final var created = LocalDateTime.now();
+    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, created, null, false, false);
+    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, created, null, false, false);
+    final var output = new RegisterUserOutput(5, UserType.USER_DEFAULT.index(), 1, username, email, created);
     doAnswer(invocationOnMock -> {
       mockUsers.add(registered);
       return registered;
@@ -148,7 +146,7 @@ public class UserServiceTests
     final var username = "SoraKatadzuma";
     final var email = "sorakatadzuma@gmail.com";
     final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
-    final var created = Instant.now();
+    final var created = LocalDateTime.now();
     doReturn(true).when(userRepository).existsUserByUsernameOrEmail(eq(username), eq(email));
 
     final var usernameCaptor = ArgumentCaptor.forClass(String.class);
@@ -240,7 +238,7 @@ public class UserServiceTests
   @Test
   void test_DeleteUserWithId_DeleteUserSuccessfully()
   {
-    final var deleted = Instant.now().toEpochMilli();
+    final var deleted = LocalDateTime.now();
     final var user = mockUsers.get(0);
     doReturn(Optional.of(user)).when(userRepository).findById(1);
     doAnswer(invocationOnMock -> {

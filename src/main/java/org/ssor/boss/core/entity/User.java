@@ -71,8 +71,8 @@ public class User implements UserDetails, Serializable
   private String username;
   private String email;
   private String password;
-  private long created;
-  private Long deleted = null;
+  private LocalDateTime created;
+  private LocalDateTime deleted = null;
   private boolean enabled = false;
   private boolean locked = false;
 
