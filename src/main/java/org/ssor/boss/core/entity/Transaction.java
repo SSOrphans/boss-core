@@ -17,6 +17,7 @@ public class Transaction
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @NonNull
+  @Column(name = "id")
   private Integer id;
 
   @Column(name = "overdraft_id")
