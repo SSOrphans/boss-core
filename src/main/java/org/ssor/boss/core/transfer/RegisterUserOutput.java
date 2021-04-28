@@ -26,5 +26,5 @@ public class RegisterUserOutput implements Serializable
   private int branchId;
   private String username;
   private String email;
-  private LocalDateTime created;
+  private long created;
 }

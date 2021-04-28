@@ -26,7 +26,8 @@ public class SecureUserDetails
   private UserType type;
   private int branchId;
   private String username;
-  private LocalDateTime created;
+  private long created;
+  private Long deleted;
 
   /**
    * Create {@link SecureUserDetails} from a {@link User}.
@@ -40,5 +41,6 @@ public class SecureUserDetails
     branchId = user.getBranchId();
     username = user.getUsername();
     created = user.getCreated();
+    deleted = user.getDeleted();
   }
 }

@@ -3,6 +3,7 @@ package org.ssor.boss.core.transfer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.ssor.boss.core.entity.UserType;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,8 +11,8 @@ public class RegisterUserOutputTests
 {
   static final String USER_NAME = "LeftRuleMatters";
   static final String EMAIL = "john.christman@smoothstack.com";
-  static final LocalDateTime CREATED = LocalDateTime.now();
-  static final Integer TYPE_ID = UserType.USER_DEFAULT.index();
+  static final long CREATED = Instant.now().toEpochMilli();
+  static final int TYPE_ID = UserType.USER_DEFAULT.index();
   static RegisterUserOutput registerUserOutput1;
   static RegisterUserOutput registerUserOutput2;
   static RegisterUserOutput registerUserOutput3;
