@@ -1,4 +1,4 @@
-package org.ssor.boss.exception;
+package org.ssor.boss.core.exception;
 
 import org.springframework.http.HttpStatus;
 
