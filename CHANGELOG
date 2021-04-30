@@ -20,3 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Secure user details transfer object
 - Update user input transfer object
 - tests for each added object
+
+## [1.1.0] - 2021-04-25
+
+### Changed
+
+- User created and deleted from DATETIME to long
+- User changes reflected in all classes which use it or replicate its data

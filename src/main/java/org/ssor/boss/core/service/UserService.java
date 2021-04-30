@@ -1,6 +1,7 @@
 package org.ssor.boss.core.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,7 @@ import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.repository.UserRepository;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +86,7 @@ public class UserService implements UserDetailsService
    * @return The result of registering a new user.
    */
   public RegisterUserOutput registerNewUser(@Valid @NotNull RegisterUserInput registerUserInput,
-                                            @NotNull LocalDateTime created) throws UserAlreadyExistsException
+                                            @NotNull Instant created) throws UserAlreadyExistsException
   {
     final var username = registerUserInput.getUsername();
     final var email = registerUserInput.getEmail();
@@ -92,7 +94,7 @@ public class UserService implements UserDetailsService
       throw new UserAlreadyExistsException();
 
     final var password = registerUserInput.getPassword();
-    final var user = new User(null, UserType.USER_DEFAULT, 1, username, email, password, created, null, false, false);
+    final var user = new User(null, UserType.USER_DEFAULT, 1, username, email, password, created.toEpochMilli(), null, false, false);
     final var result = userRepository.save(user);
     final var output = new RegisterUserOutput();
 
@@ -192,7 +194,7 @@ public class UserService implements UserDetailsService
   public void deleteUserWithId(int id)
   {
     // Prep delete time.
-    final var deleted = LocalDateTime.now();
+    final var deleted = Instant.now().toEpochMilli();
     final var possibleUser = userRepository.findById(id);
     if (possibleUser.isEmpty())
       return;
