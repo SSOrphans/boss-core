@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class CardDto {
-    @NotNull
     private Integer id;
     @NotNull
     private String numberHash;
@@ -26,19 +25,14 @@ public class CardDto {
     @NotNull
     private Integer accountId;
     @NotNull
-    private LocalDateTime created;
-    @NotNull
-    private LocalDate activeSince;
-    @NotNull
-    private LocalDate expirationDate;
-    @NotNull
-    private Boolean confirmed;
-    @NotNull
-    private Boolean active;
-    @NotNull
-    private Boolean stolen;
-    @NotNull
     private CardType cardType;
+    private LocalDateTime created;
+    private LocalDate activeSince;
+    private LocalDate expirationDate;
+    private Boolean confirmed;
+    private Boolean active;
+    private Boolean stolen;
+
 
 
     public Card convertToCardEntity() {
