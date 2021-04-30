@@ -24,8 +24,9 @@ public class LoanDto {
     private Integer branchId;
     @NotNull
     private LoanType loanType;
-    private LocalDateTime takenAt;
+    @NotNull
     private LocalDate dueBy;
+    private LocalDateTime takenAt;
     private Float amountDue;
 
 
