@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @NamedQuery(name = "Loan.findByUserIdAndId", query = "SELECT l FROM Loan l WHERE l.userId = :userId AND l.id = :id")
 @NamedQuery(name = "Loan.findByUserId", query = "SELECT l FROM Loan l WHERE l.userId = :userId")
 @NamedQuery(name = "Loan.findByBranchId", query = "SELECT l FROM Loan l WHERE l.branchId = :branchId")
-@Table(name = "loan", schema = "boss")
+@Table(name = "loan",schema = "boss")
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

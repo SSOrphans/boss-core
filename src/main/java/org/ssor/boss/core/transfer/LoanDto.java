@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
  */
 @Data
 public class LoanDto {
-    @NotNull
     private Integer id;
     @NotNull
     private Float amount;
@@ -25,11 +24,8 @@ public class LoanDto {
     private Integer branchId;
     @NotNull
     private LoanType loanType;
-    @NotNull
     private LocalDateTime takenAt;
-    @NotNull
     private LocalDate dueBy;
-    @NotNull
     private Float amountDue;
 
 
