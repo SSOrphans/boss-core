@@ -42,4 +42,11 @@ create table if not exists boss.user
     locked    BIT          NOT NULL,
     PRIMARY KEY (id)
 );
-
+create table if not exists boss.confirmation
+(
+    id               INT      NOT NULL AUTO_INCREMENT UNIQUE,
+    type_id          TINYINT  NOT NULL,
+    confirmable_id   INT      NOT NULL,
+    confirmable_hash CHAR(36) NOT NULL UNIQUE,
+    good_until       BIGINT   NOT NULL
+);
