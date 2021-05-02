@@ -6,9 +6,18 @@ create table if not exists boss.user (
    username VARCHAR(16) NOT NULL UNIQUE,
    email VARCHAR(128) NOT NULL UNIQUE,
    password CHAR(64) NOT NULL,
-   created DATETIME NOT NULL,
-   deleted DATETIME,
+   created BIGINT NOT NULL,
+   deleted BIGINT,
    enabled BIT NOT NULL,
    locked BIT NOT NULL,
    PRIMARY KEY (id)
+);
+
+create table if not exists boss.confirmation
+(
+    id               INT      NOT NULL AUTO_INCREMENT UNIQUE,
+    type_id          TINYINT  NOT NULL,
+    confirmable_id   INT      NOT NULL,
+    confirmable_hash CHAR(36) NOT NULL UNIQUE,
+    good_until       BIGINT   NOT NULL
 );

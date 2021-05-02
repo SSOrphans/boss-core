@@ -1,10 +1,12 @@
 package org.ssor.boss.core.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.ssor.boss.core.entity.UserType;
@@ -32,12 +34,14 @@ import java.util.stream.Collectors;
  *   extra logic for validation and extra steps if more than one thing needs to be updated from the service.
  * </p>
  */
+@Slf4j
 @Service
 @Validated
 @AllArgsConstructor
 public class UserService implements UserDetailsService
 {
   private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException
@@ -46,6 +50,7 @@ public class UserService implements UserDetailsService
     final var result = userRepository.getUserByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
     if (result.isEmpty())
       throw new UsernameNotFoundException("User with username or email not found");
+    log.debug(result.toString());
     return result.get();
   }
 
@@ -93,7 +98,7 @@ public class UserService implements UserDetailsService
     if (userRepository.existsUserByUsernameOrEmail(username, email))
       throw new UserAlreadyExistsException();
 
-    final var password = registerUserInput.getPassword();
+    final var password = passwordEncoder.encode(registerUserInput.getPassword());
     final var user = new User(null, UserType.USER_DEFAULT, 1, username, email, password, created.toEpochMilli(), null, false, false);
     final var result = userRepository.save(user);
     final var output = new RegisterUserOutput();
@@ -105,6 +110,22 @@ public class UserService implements UserDetailsService
     output.setEmail(result.getEmail());
     output.setCreated(result.getCreated());
     return output;
+  }
+
+  /**
+   * Confirms a user with the provided user id.
+   *
+   * @param userId The id of the user to confirm.
+   */
+  public void confirmUserWithId(int userId)
+  {
+    final var optionalUser = userRepository.findById(userId);
+    if (optionalUser.isEmpty())
+      throw new NoSuchUserException(userId);
+
+    final var user = optionalUser.get();
+    user.setEnabled(true);
+    userRepository.save(user);
   }
 
   /**
