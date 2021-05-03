@@ -10,6 +10,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.entity.UserType;
 import org.ssor.boss.core.exception.NoSuchUserException;
@@ -19,6 +20,7 @@ import org.ssor.boss.core.transfer.RegisterUserInput;
 import org.ssor.boss.core.transfer.RegisterUserOutput;
 import org.ssor.boss.core.transfer.SecureUserDetails;
 import org.ssor.boss.core.transfer.UpdateUserInput;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.never;
@@ -38,6 +41,8 @@ public class UserServiceTests
   static final String FAKE_PASSWORD = "D8A4D80f7C27F25067E56671B1AA4f7172E3C7418DE442fDF42fF49CF49FE20E";
 
   @Mock
+  static PasswordEncoder passwordEncoder;
+  @Mock
   static UserRepository userRepository;
   static List<User> mockUsers;
   static UserService userService;
@@ -46,14 +51,14 @@ public class UserServiceTests
   void setUp()
   {
     // Populate fake users.
-    final var created = LocalDateTime.now();
+    final var created = Instant.now().toEpochMilli();
     final var user1 = new User(1, UserType.USER_DEFAULT, 1, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD, created, null, true, false);
-    final var user2 = new User(2, UserType.USER_DEFAULT, 1, "Monkey", "monkey@gmail.com", FAKE_PASSWORD, created, null, true, false);
+    final var user2 = new User(2, UserType.USER_DEFAULT, 1, "Monkey", "monkey@gmail.com", FAKE_PASSWORD, created, null, false, false);
     final var user3 = new User(3, UserType.USER_DEFAULT, 1, "Fish", "fish@gmail.com", FAKE_PASSWORD, created, null, true, false);
     final var user4 = new User(4, UserType.USER_DEFAULT, 1, "LeftRuleMatters", "john.christman@smoothstack.com", FAKE_PASSWORD, created, null, true, false);
 
     mockUsers = Lists.newArrayList(user1, user2, user3, user4);
-    userService = new UserService(userRepository);
+    userService = new UserService(userRepository, passwordEncoder);
     assertThat(userService).isNotNull();
   }
 
@@ -124,10 +129,11 @@ public class UserServiceTests
     final var username = "Nobody";
     final var email = "you@me.com";
     final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
-    final var created = LocalDateTime.now();
-    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, created, null, false, false);
-    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, created, null, false, false);
-    final var output = new RegisterUserOutput(5, UserType.USER_DEFAULT.index(), 1, username, email, created);
+    final var created = Instant.now();
+    final var milli = created.toEpochMilli();
+    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
+    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
+    final var output = new RegisterUserOutput(5, UserType.USER_DEFAULT.index(), 1, username, email, milli);
     doAnswer(invocationOnMock -> {
       mockUsers.add(registered);
       return registered;
@@ -146,7 +152,7 @@ public class UserServiceTests
     final var username = "SoraKatadzuma";
     final var email = "sorakatadzuma@gmail.com";
     final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
-    final var created = LocalDateTime.now();
+    final var created = Instant.now();
     doReturn(true).when(userRepository).existsUserByUsernameOrEmail(eq(username), eq(email));
 
     final var usernameCaptor = ArgumentCaptor.forClass(String.class);
@@ -157,6 +163,28 @@ public class UserServiceTests
     verify(userRepository).existsUserByUsernameOrEmail(usernameCaptor.capture(), emailCaptor.capture());
     assertThat(usernameCaptor.getValue()).isEqualTo(username);
     assertThat(emailCaptor.getValue()).isEqualTo(email);
+    verify(userRepository, never()).save(any());
+  }
+
+  @Test
+  void test_ConfirmUserWithId_ConfirmsUserSuccessfully()
+  {
+    final var user = mockUsers.get(1);
+    doReturn(Optional.of(user)).when(userRepository).findById(eq(2));
+
+    userService.confirmUserWithId(2);
+    verify(userRepository).findById(2);
+    verify(userRepository).save(any());
+    assertThat(user.isEnabled()).isTrue();
+  }
+
+  @Test
+  void test_ConfirmUserWithId_ThrowsNoSuchUserException_WithInvalidUserId()
+  {
+    doReturn(Optional.empty()).when(userRepository).findById(9);
+    assertThatThrownBy(() -> userService.confirmUserWithId(9)).isInstanceOf(NoSuchUserException.class)
+                                                              .hasMessage("No such user with id 9");
+    verify(userRepository, atMostOnce()).findById(9);
     verify(userRepository, never()).save(any());
   }
 
@@ -238,7 +266,7 @@ public class UserServiceTests
   @Test
   void test_DeleteUserWithId_DeleteUserSuccessfully()
   {
-    final var deleted = LocalDateTime.now();
+    final var deleted = Instant.now().toEpochMilli();
     final var user = mockUsers.get(0);
     doReturn(Optional.of(user)).when(userRepository).findById(1);
     doAnswer(invocationOnMock -> {
