@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "account")
-@SecondaryTable(name = "account_type")
 public class Account
 {
 
@@ -36,10 +36,15 @@ public class Account
   @Column(name = "branch_id")
   private Integer branchId;
 
-  @OneToOne
-  @JoinColumn(name = "type_id")
+  @Enumerated
+  @Column(name = "type_id")
   private AccountType accountType;
 
+  @OneToMany
+  @JoinTable(name = "account_users",
+             joinColumns = @JoinColumn(name = "account_id"),
+             inverseJoinColumns = @JoinColumn(name = "user_id"))
+  private List<User> users;
 
 
   @Override
