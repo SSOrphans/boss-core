@@ -53,7 +53,7 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByUserId() {
         Pageable page = PageRequest.of(0, 2);
-        List<Loan> results = loanRepository.findByUserId(1, page);
+        List<Loan> results = loanRepository.findByUserId(1, page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
@@ -70,7 +70,7 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByBranchId() {
         Pageable page = PageRequest.of(0, 2);
-        List<Loan> results = loanRepository.findByBranchId(1, page);
+        List<Loan> results = loanRepository.findByBranchId(1, page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
