@@ -25,6 +25,7 @@ public class LoanRepositoryTest {
         assertThat(resultOpt.isPresent()).isTrue();
         Loan result = resultOpt.get();
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -38,8 +39,8 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByUserIdAndId() {
         Loan result = loanRepository.findByUserIdAndId(1, 1);
-
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -53,10 +54,11 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByUserId() {
         Pageable page = PageRequest.of(0, 2);
-        List<Loan> results = loanRepository.findByUserId(1, page).getContent();
+        List<Loan> results = loanRepository.findAllByUserIdAndLoanNumberContains(1, "", page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -70,10 +72,11 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByBranchId() {
         Pageable page = PageRequest.of(0, 2);
-        List<Loan> results = loanRepository.findByBranchId(1, page).getContent();
+        List<Loan> results = loanRepository.findAllByBranchIdAndLoanNumberContains(1, "", page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);

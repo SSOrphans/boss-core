@@ -30,6 +30,9 @@ public class Loan {
     @Column(name = "user_id")
     private Integer userId;
 
+    @Column(name = "loan_number")
+    private String loanNumber;
+
     @Column(name = "amount")
     private Float amount;
 
@@ -52,6 +55,7 @@ public class Loan {
     public LoanDto convertToLoanDto() {
         LoanDto loanDto = new LoanDto();
         loanDto.setId(id);
+        loanDto.setLoanNumber(loanNumber);
         loanDto.setAmount(amount);
         loanDto.setLoanType(loanType);
         loanDto.setUserId(userId);

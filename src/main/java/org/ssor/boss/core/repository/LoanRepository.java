@@ -2,9 +2,7 @@ package org.ssor.boss.core.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.ssor.boss.core.entity.Loan;
 
@@ -13,12 +11,11 @@ import org.ssor.boss.core.entity.Loan;
  */
 @Repository
 public interface LoanRepository extends PagingAndSortingRepository<Loan, Integer> {
-    @Query(value = "SELECT l FROM Loan l WHERE l.userId = :userId AND l.id = :id")
-    Loan findByUserIdAndId(@Param("userId") Integer userId, @Param("id") Integer id);
+    Loan findByUserIdAndId(Integer userId, Integer id);
 
-    @Query(value = "SELECT l FROM Loan l WHERE l.userId = :userId")
-    Page<Loan> findByUserId(@Param("userId") Integer userId, Pageable pageable);
+    Page<Loan> findAllByUserIdAndLoanNumberContains(Integer userId, String loanNumber, Pageable pageable);
 
-    @Query(value = "SELECT l FROM Loan l WHERE l.branchId = :branchId")
-    Page<Loan> findByBranchId(@Param("branchId") Integer branchId, Pageable pageable);
+    Page<Loan> findAllByBranchIdAndLoanNumberContains(Integer branchId, String loanNumber, Pageable pageable);
+
+    Page<Loan> findAllByLoanNumberContains(String loanNumber, Pageable pageable);
 }
