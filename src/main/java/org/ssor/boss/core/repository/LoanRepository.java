@@ -13,9 +13,9 @@ import org.ssor.boss.core.entity.Loan;
 public interface LoanRepository extends PagingAndSortingRepository<Loan, Integer> {
     Loan findByUserIdAndId(Integer userId, Integer id);
 
-    Page<Loan> findAllByUserIdAndLoanNumberContains(Integer userId, String loanNumber, Pageable pageable);
+    Page<Loan> findAllByUserIdAndLoanNumberStartsWith(Integer userId, String loanNumber, Pageable pageable);
 
-    Page<Loan> findAllByBranchIdAndLoanNumberContains(Integer branchId, String loanNumber, Pageable pageable);
+    Page<Loan> findAllByBranchIdAndLoanNumberStartsWith(Integer branchId, String loanNumber, Pageable pageable);
 
-    Page<Loan> findAllByLoanNumberContains(String loanNumber, Pageable pageable);
+    Page<Loan> findAllByLoanNumberStartsWith(String loanNumber, Pageable pageable);
 }
