@@ -53,7 +53,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user", schema = "boss", uniqueConstraints = {
+@Table(name = "user", uniqueConstraints = {
   @UniqueConstraint(columnNames = "id"),
   @UniqueConstraint(columnNames = "username"),
   @UniqueConstraint(columnNames = "email")
