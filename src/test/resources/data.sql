@@ -15,3 +15,6 @@ values (1, 1, 1, 25000, 0.1, NOW(), NOW(), 5000);
 insert into boss.card (type_id, number_hash, account_id, created, active_since, expiration_date, pin, cvv, confirmed,
                        active, stolen)
 values (0, '1234567890123456', 1, NOW(), NOW(), NOW(), 1111, 111, true, true, false);
+
+insert into boss.account_holder(user_id, full_name, dob, ssn, address, city, state, zip, phone)
+values(1, 'Trevor Philips', 20130917, '123-45-6789', '16703 Nicklaus Dr', 'Los Anglees', 'CA', 91342, '+12735550136');
