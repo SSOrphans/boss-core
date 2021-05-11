@@ -39,6 +39,10 @@ public class Transaction
   @Column(name = "account_id")
   private Integer accountId;
 
+  @Enumerated
+  @Column(name = "type_id")
+  private TransactionType type;
+
   @Override
   public boolean equals(Object o)
   {
