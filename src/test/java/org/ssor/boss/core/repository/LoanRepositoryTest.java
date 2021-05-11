@@ -3,10 +3,13 @@ package org.ssor.boss.core.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.ssor.boss.core.entity.Loan;
 import org.ssor.boss.core.entity.LoanType;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,8 +21,11 @@ public class LoanRepositoryTest {
 
     @Test
     public void test_CanFindById() {
-        Loan result = loanRepository.getOne(1);
+        Optional<Loan> resultOpt = loanRepository.findById(1);
+        assertThat(resultOpt.isPresent()).isTrue();
+        Loan result = resultOpt.get();
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -33,8 +39,8 @@ public class LoanRepositoryTest {
     @Test
     public void test_CanFindByUserIdAndId() {
         Loan result = loanRepository.findByUserIdAndId(1, 1);
-
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -47,10 +53,12 @@ public class LoanRepositoryTest {
 
     @Test
     public void test_CanFindByUserId() {
-        List<Loan> results = loanRepository.findByUserId(1);
+        Pageable page = PageRequest.of(0, 2);
+        List<Loan> results = loanRepository.findAllByUserIdAndLoanNumberStartsWith(1, "", page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
@@ -63,10 +71,12 @@ public class LoanRepositoryTest {
 
     @Test
     public void test_CanFindByBranchId() {
-        List<Loan> results = loanRepository.findByBranchId(1);
+        Pageable page = PageRequest.of(0, 2);
+        List<Loan> results = loanRepository.findAllByBranchIdAndLoanNumberStartsWith(1, "", page).getContent();
         assertThat(results).isNotNull().isNotEmpty();
         Loan result = results.get(0);
         assertThat(result.getId()).isNotNull().isEqualTo(1);
+        assertThat(result.getLoanNumber()).isNotNull().isEqualTo("1234567890");
         assertThat(result.getLoanType()).isNotNull().isEqualTo(LoanType.LOAN_STUDENT);
         assertThat(result.getUserId()).isNotNull().isEqualTo(1);
         assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
