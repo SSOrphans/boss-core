@@ -12,7 +12,7 @@ import java.util.Objects;
 @Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Table(name = "account")
+@Table(name = "account", schema = "boss")
 public class Account
 {
 

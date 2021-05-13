@@ -20,7 +20,7 @@ public class LoanTest {
     @Test
     void test_CanCreateAllArgsLoan() {
         LoanType loanType = LoanType.LOAN_STUDENT;
-        Loan loan = new Loan(1, 1, 1, 1f, 1f, LocalDateTime.of(2021, 1, 1, 0, 0), LocalDate.of(2022, 1, 1), 1f, loanType);
+        Loan loan = new Loan(1, 1, 1, "1", 1f, 1f, LocalDateTime.of(2021, 1, 1, 0, 0), LocalDate.of(2022, 1, 1), 1f, loanType);
         assertThat(loan).isNotNull();
     }
 
@@ -71,6 +71,7 @@ public class LoanTest {
 
         Loan loanA = new Loan();
         loanA.setId(1);
+        loanA.setLoanNumber("1");
         loanA.setUserId(1);
         loanA.setBranchId(1);
         loanA.setAmount(1f);
@@ -82,6 +83,7 @@ public class LoanTest {
 
         LoanDto loanDtoB = new LoanDto();
         loanDtoB.setId(1);
+        loanDtoB.setLoanNumber("1");
         loanDtoB.setUserId(1);
         loanDtoB.setBranchId(1);
         loanDtoB.setAmount(1f);

@@ -18,10 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Loan.findByUserIdAndId", query = "SELECT l FROM Loan l WHERE l.userId = :userId AND l.id = :id")
-@NamedQuery(name = "Loan.findByUserId", query = "SELECT l FROM Loan l WHERE l.userId = :userId")
-@NamedQuery(name = "Loan.findByBranchId", query = "SELECT l FROM Loan l WHERE l.branchId = :branchId")
-@Table(name = "loan",schema = "boss")
+@Table(name = "loan", schema = "boss")
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +29,9 @@ public class Loan {
 
     @Column(name = "user_id")
     private Integer userId;
+
+    @Column(name = "loan_number")
+    private String loanNumber;
 
     @Column(name = "amount")
     private Float amount;
@@ -55,6 +55,7 @@ public class Loan {
     public LoanDto convertToLoanDto() {
         LoanDto loanDto = new LoanDto();
         loanDto.setId(id);
+        loanDto.setLoanNumber(loanNumber);
         loanDto.setAmount(amount);
         loanDto.setLoanType(loanType);
         loanDto.setUserId(userId);

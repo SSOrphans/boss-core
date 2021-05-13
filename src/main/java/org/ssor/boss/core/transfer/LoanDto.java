@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class LoanDto {
     private Integer id;
+    private String loanNumber;
     @NotNull
     private Float amount;
     @NotNull
@@ -33,6 +34,7 @@ public class LoanDto {
     public Loan convertToLoanEntity() {
         Loan loan = new Loan();
         loan.setId(id);
+        loan.setLoanNumber(loanNumber);
         loan.setAmount(amount);
         loan.setUserId(userId);
         loan.setBranchId(branchId);
