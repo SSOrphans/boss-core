@@ -41,3 +41,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - User created and deleted from DATETIME to long
 - User changes reflected in all classes which use it or replicate its data
+
+## [1.2.0] - 2021-05-13
+
+### Added
+
+- Account Entity
+- Account Holder Entity
+- Account Type
+- Account Holder Repository
+- Transaction Entity
+- Transaction Type

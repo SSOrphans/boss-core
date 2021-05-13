@@ -24,6 +24,7 @@ public class LoanDtoTest {
         LoanDto loanDtoC = new LoanDto();
         LoanType loanType = LoanType.LOAN_STUDENT;
         loanDtoA.setId(1);
+        loanDtoA.setLoanNumber("1");
         loanDtoA.setUserId(1);
         loanDtoA.setBranchId(1);
         loanDtoA.setAmount(1f);
@@ -35,6 +36,7 @@ public class LoanDtoTest {
 
 
         loanDtoB.setId(1);
+        loanDtoB.setLoanNumber("1");
         loanDtoB.setUserId(1);
         loanDtoB.setBranchId(1);
         loanDtoB.setAmount(1f);
@@ -45,6 +47,7 @@ public class LoanDtoTest {
         loanDtoB.setLoanType(loanType);
 
         loanDtoC.setId(2);
+        loanDtoC.setLoanNumber("2");
         loanDtoC.setUserId(2);
         loanDtoC.setBranchId(2);
         loanDtoC.setAmount(2f);
@@ -64,6 +67,7 @@ public class LoanDtoTest {
         LoanDto loanDtoA = new LoanDto();
         LoanType loanType = LoanType.LOAN_STUDENT;
         loanDtoA.setId(1);
+        loanDtoA.setLoanNumber("1");
         loanDtoA.setUserId(1);
         loanDtoA.setBranchId(1);
         loanDtoA.setAmount(1f);
@@ -75,6 +79,7 @@ public class LoanDtoTest {
 
         Loan loanB = new Loan();
         loanB.setId(1);
+        loanB.setLoanNumber("1");
         loanB.setUserId(1);
         loanB.setBranchId(1);
         loanB.setAmount(1f);

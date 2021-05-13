@@ -2,6 +2,7 @@ create schema if not exists boss;
 create table if not exists boss.loan
 (
     id            INT      NOT NULL AUTO_INCREMENT UNIQUE,
+    loan_number VARCHAR(64) NOT NULL UNIQUE,
     type_id       TINYINT  NOT NULL,
     user_id       INT      NOT NULL,
     branch_id     INT      NOT NULL,
@@ -50,3 +51,19 @@ create table if not exists boss.confirmation
     confirmable_hash CHAR(36) NOT NULL UNIQUE,
     good_until       BIGINT   NOT NULL
 );
+create table if not exists boss.account_holder
+(
+  user_id		INT UNSIGNED	NOT NULL,
+  full_name		VARCHAR(64)		NOT NULL,
+  dob			DATE			NOT NULL,
+  ssn			CHAR(64)		NOT NULL,
+  address		CHAR(255)		NOT NULL,
+  city			CHAR(64) 		NOT NULL,
+  state			CHAR(32)		NOT NULL,
+  zip			INT				NOT NULL,
+  phone			CHAR(16)		NOT NULL,
+
+  PRIMARY KEY	(user_id),
+  FOREIGN KEY	(user_id) REFERENCES boss.user (id)
+);
+

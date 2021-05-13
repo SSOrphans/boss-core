@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "transaction")
+@Table(name = "transaction", schema = "boss")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -38,6 +38,10 @@ public class Transaction
   private Boolean pending;
   @Column(name = "account_id")
   private Integer accountId;
+
+  @Enumerated
+  @Column(name = "type_id")
+  private TransactionType type;
 
   @Override
   public boolean equals(Object o)
