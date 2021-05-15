@@ -19,7 +19,7 @@ public class Account
   @Id
   @NonNull
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
   @Column(name = "name")
   private String name;
   @Column(name = "balance")

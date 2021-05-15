@@ -37,7 +37,7 @@ public class Transaction
   @Column(name = "pending")
   private Boolean pending;
   @Column(name = "account_id")
-  private Integer accountId;
+  private Long accountId;
 
   @Enumerated
   @Column(name = "type_id")
