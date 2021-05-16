@@ -2,7 +2,7 @@ package org.ssor.boss.core.transfer;
 
 import lombok.Data;
 import org.ssor.boss.core.entity.Loan;
-import org.ssor.boss.core.entity.LoanType;
+import org.ssor.boss.core.entity.LoanTypeEnum;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class LoanDto {
     @NotNull
     private Integer branchId;
     @NotNull
-    private LoanType loanType;
+    private LoanTypeEnum loanType;
     @NotNull
     private LocalDate dueBy;
     private LocalDateTime takenAt;

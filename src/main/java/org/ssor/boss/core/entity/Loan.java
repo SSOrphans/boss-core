@@ -48,9 +48,9 @@ public class Loan {
     @Column(name = "amount_due")
     private Float amountDue;
 
-    @Enumerated
     @Column(name = "type_id")
-    private LoanType loanType;
+    @Enumerated
+    private LoanTypeEnum loanType;
 
     public LoanDto convertToLoanDto() {
         LoanDto loanDto = new LoanDto();
