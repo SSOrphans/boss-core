@@ -32,6 +32,7 @@ public class LoanTest {
         Loan loanC = new Loan();
         loanA.setId(1);
         loanA.setUserId(1);
+        loanA.setLoanNumber("1");
         loanA.setBranchId(1);
         loanA.setAmount(1f);
         loanA.setAmountDue(1f);
@@ -43,6 +44,7 @@ public class LoanTest {
 
         loanB.setId(1);
         loanB.setUserId(1);
+        loanB.setLoanNumber("1");
         loanB.setBranchId(1);
         loanB.setAmount(1f);
         loanB.setAmountDue(1f);
@@ -53,6 +55,7 @@ public class LoanTest {
 
         loanC.setId(2);
         loanC.setUserId(2);
+        loanB.setLoanNumber("2");
         loanC.setBranchId(2);
         loanC.setAmount(2f);
         loanC.setAmountDue(2f);
