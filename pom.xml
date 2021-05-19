@@ -11,7 +11,7 @@
     </parent>
     <groupId>org.ssor</groupId>
     <artifactId>boss-core</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <name>boss-core</name>
     <description>Demo project for Spring Boot</description>
     <properties>
