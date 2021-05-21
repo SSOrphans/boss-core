@@ -10,15 +10,12 @@ import java.util.Objects;
 @Entity
 @Setter
 @Getter
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "account", schema = "boss")
 public class Account
 {
 
   @Id
-  @NonNull
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Column(name = "name")
   private String name;
