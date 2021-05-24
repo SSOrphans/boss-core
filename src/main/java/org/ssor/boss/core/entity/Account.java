@@ -5,21 +5,19 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Setter
 @Getter
-@RequiredArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Table(name = "account", schema = "boss")
 public class Account
 {
 
   @Id
-  @NonNull
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @EqualsAndHashCode.Include
+  private Long id;
   @Column(name = "name")
   private String name;
   @Column(name = "balance")
@@ -41,24 +39,9 @@ public class Account
   private AccountType accountType;
 
   @OneToMany
-  @JoinTable(name = "account_users",
+  @JoinTable(name = "account_users", schema = "boss",
              joinColumns = @JoinColumn(name = "account_id"),
              inverseJoinColumns = @JoinColumn(name = "user_id"))
   private List<User> users;
-
-
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Account account = (Account) o;
-    return id.equals(account.id);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(id);
-  }
+  
 }
