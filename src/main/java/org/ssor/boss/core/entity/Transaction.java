@@ -12,12 +12,14 @@ import java.util.Objects;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Transaction
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @NonNull
   @Column(name = "id")
+  @EqualsAndHashCode.Include
   private Integer id;
 
   @Column(name = "overdraft_id")
@@ -43,18 +45,4 @@ public class Transaction
   @Column(name = "type_id")
   private TransactionType type;
 
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Transaction that = (Transaction) o;
-    return id.equals(that.id);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(id);
-  }
 }
