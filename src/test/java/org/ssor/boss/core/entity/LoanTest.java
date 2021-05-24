@@ -55,7 +55,7 @@ public class LoanTest {
 
         loanC.setId(2);
         loanC.setUserId(2);
-        loanB.setLoanNumber("2");
+        loanC.setLoanNumber("2");
         loanC.setBranchId(2);
         loanC.setAmount(2f);
         loanC.setAmountDue(2f);
