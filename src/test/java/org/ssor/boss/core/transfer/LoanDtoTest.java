@@ -3,7 +3,7 @@ package org.ssor.boss.core.transfer;
 
 import org.junit.jupiter.api.Test;
 import org.ssor.boss.core.entity.Loan;
-import org.ssor.boss.core.entity.LoanType;
+import org.ssor.boss.core.entity.LoanTypeEnum;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class LoanDtoTest {
         LoanDto loanDtoA = new LoanDto();
         LoanDto loanDtoB = new LoanDto();
         LoanDto loanDtoC = new LoanDto();
-        LoanType loanType = LoanType.LOAN_STUDENT;
+        LoanTypeEnum loanTypeEnum = LoanTypeEnum.LOAN_STUDENT;
         loanDtoA.setId(1);
         loanDtoA.setLoanNumber("1");
         loanDtoA.setUserId(1);
@@ -32,7 +32,7 @@ public class LoanDtoTest {
         loanDtoA.setInterestRate(1f);
         loanDtoA.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
         loanDtoA.setDueBy(LocalDate.of(2022, 1, 1));
-        loanDtoA.setLoanType(loanType);
+        loanDtoA.setLoanType(loanTypeEnum);
 
 
         loanDtoB.setId(1);
@@ -44,7 +44,7 @@ public class LoanDtoTest {
         loanDtoB.setInterestRate(1f);
         loanDtoB.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
         loanDtoB.setDueBy(LocalDate.of(2022, 1, 1));
-        loanDtoB.setLoanType(loanType);
+        loanDtoB.setLoanType(loanTypeEnum);
 
         loanDtoC.setId(2);
         loanDtoC.setLoanNumber("2");
@@ -55,7 +55,7 @@ public class LoanDtoTest {
         loanDtoC.setInterestRate(2f);
         loanDtoC.setTakenAt(LocalDateTime.of(2022, 1, 1, 0, 0));
         loanDtoC.setDueBy(LocalDate.of(2023, 1, 1));
-        loanDtoC.setLoanType(LoanType.LOAN_PERSONAL);
+        loanDtoC.setLoanType(LoanTypeEnum.LOAN_PERSONAL);
         assertThat(loanDtoA).isEqualTo(loanDtoB);
         assertThat(loanDtoA).isNotEqualTo(loanDtoC);
     }
@@ -65,7 +65,7 @@ public class LoanDtoTest {
 
 
         LoanDto loanDtoA = new LoanDto();
-        LoanType loanType = LoanType.LOAN_STUDENT;
+        LoanTypeEnum loanTypeEnum = LoanTypeEnum.LOAN_STUDENT;
         loanDtoA.setId(1);
         loanDtoA.setLoanNumber("1");
         loanDtoA.setUserId(1);
@@ -75,7 +75,7 @@ public class LoanDtoTest {
         loanDtoA.setInterestRate(1f);
         loanDtoA.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
         loanDtoA.setDueBy(LocalDate.of(2022, 1, 1));
-        loanDtoA.setLoanType(loanType);
+        loanDtoA.setLoanType(loanTypeEnum);
 
         Loan loanB = new Loan();
         loanB.setId(1);
@@ -87,7 +87,7 @@ public class LoanDtoTest {
         loanB.setInterestRate(1f);
         loanB.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
         loanB.setDueBy(LocalDate.of(2022, 1, 1));
-        loanB.setLoanType(loanType);
+        loanB.setLoanType(loanTypeEnum);
 
         assertThat(loanDtoA.convertToLoanEntity()).isEqualTo(loanB);
     }

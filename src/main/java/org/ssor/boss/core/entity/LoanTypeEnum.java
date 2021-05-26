@@ -3,13 +3,14 @@ package org.ssor.boss.core.entity;
 /**
  * @author Derrian Harris
  */
-public enum LoanType {
+public enum LoanTypeEnum {
+    LOAN_UNKNOWN(""),
     LOAN_STUDENT("Student"),
     LOAN_PERSONAL("Personal");
 
     private final String name;
 
-    LoanType(String name) {
+    LoanTypeEnum(String name) {
         this.name = name;
     }
 

@@ -1,20 +1,15 @@
 /**
- * 
+ *
  */
 package org.ssor.boss.core.entity;
 
-import java.time.LocalDate;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDate;
 
 /**
  * Describes a user account holder with account holder details.
@@ -37,53 +32,53 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "account_holder", schema = "boss")
-public class AccountHolder
-{
-	@Id
-	@Column(name = "user_id")
-	private Integer userId;
-	@Column(name = "full_name")
-	private String fullName;
-	private LocalDate dob;
-	private String ssn;
-	private String address;
-	private String city;
-	private String state;
-	private Integer zip;
-	private String phone;
-	
-	@Override
-	public int hashCode()
-	{
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ssn == null) ? 0 : ssn.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AccountHolder other = (AccountHolder) obj;
-		if (ssn == null)
-		{
-			if (other.ssn != null)
-				return false;
-		} else if (!ssn.equals(other.ssn))
-			return false;
-		if (userId == null)
-		{
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
-		return true;
-	}
-	
+public class AccountHolder {
+    @Id
+    @Column(name = "user_id")
+    private Integer userId;
+    @Column(name = "full_name")
+    private String fullName;
+    private LocalDate dob;
+    private String ssn;
+    private String address;
+    private String city;
+    private String state;
+    private Integer zip;
+    private String phone;
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((ssn == null) ? 0 : ssn.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        AccountHolder other = (AccountHolder) obj;
+        if (ssn == null) {
+            if (other.ssn != null) {
+                return false;
+            }
+        } else if (!ssn.equals(other.ssn)) {
+            return false;
+        }
+        if (userId == null) {
+            return other.userId == null;
+        } else {
+            return userId.equals(other.userId);
+        }
+    }
+
 }
