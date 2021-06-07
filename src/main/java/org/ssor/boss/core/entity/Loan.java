@@ -1,68 +1,71 @@
 package org.ssor.boss.core.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.ssor.boss.core.transfer.LoanDto;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
+ * Describes the information of a loan.
+ *
  * @author Derrian Harris
  */
-
+@Data
 @Entity
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQuery(name = "Loan.findByUserIdAndId", query = "SELECT l FROM Loan l WHERE l.userId = :userId AND l.id = :id")
-@NamedQuery(name = "Loan.findByUserId", query = "SELECT l FROM Loan l WHERE l.userId = :userId")
-@NamedQuery(name = "Loan.findByBranchId", query = "SELECT l FROM Loan l WHERE l.branchId = :branchId")
-@Table(name = "loan",schema = "boss")
-public class Loan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@Table(name = "loan", schema = "boss", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "id"),
+    @UniqueConstraint(columnNames = "loan_number")
+})
+public class Loan implements Serializable
+{
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+  @Column(name = "loan_number")
+  private String loanNumber;
+  @Enumerated
+  @Column(name = "type_id")
+  private LoanType type;
+  @Column(name = "user_id")
+  private int userId;
+  @Column(name = "branch_id")
+  private int branchId;
+  private float amount;
+  @Column(name = "interest_rate")
+  private float interestRate;
+  @Column(name = "taken_at")
+  private LocalDateTime takenAt;
+  @Column(name = "due_by")
+  private LocalDate dueBy;
+  @Column(name = "amount_due")
+  private float amountDue;
 
-    @Column(name = "branch_id")
-    private Integer branchId;
-
-    @Column(name = "user_id")
-    private Integer userId;
-
-    @Column(name = "amount")
-    private Float amount;
-
-    @Column(name = "interest_rate")
-    private Float interestRate;
-
-    @Column(name = "taken_at")
-    private LocalDateTime takenAt;
-
-    @Column(name = "due_by")
-    private LocalDate dueBy;
-
-    @Column(name = "amount_due")
-    private Float amountDue;
-
-    @Enumerated
-    @Column(name = "type_id")
-    private LoanType loanType;
-
-    public LoanDto convertToLoanDto() {
-        LoanDto loanDto = new LoanDto();
-        loanDto.setId(id);
-        loanDto.setAmount(amount);
-        loanDto.setLoanType(loanType);
-        loanDto.setUserId(userId);
-        loanDto.setBranchId(branchId);
-        loanDto.setInterestRate(interestRate);
-        loanDto.setTakenAt(takenAt);
-        loanDto.setDueBy(dueBy);
-        loanDto.setAmountDue(amountDue);
-        return loanDto;
-    }
+  public LoanDto convertToLoanDto()
+  {
+    LoanDto loanDto = new LoanDto();
+    loanDto.setId(id);
+    loanDto.setLoanNumber(loanNumber);
+    loanDto.setType(type);
+    loanDto.setUserId(userId);
+    loanDto.setBranchId(branchId);
+    loanDto.setAmount(amount);
+    loanDto.setInterestRate(interestRate);
+    loanDto.setTakenAt(takenAt);
+    loanDto.setDueBy(dueBy);
+    loanDto.setAmountDue(amountDue);
+    return loanDto;
+  }
 }

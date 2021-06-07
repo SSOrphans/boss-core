@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
  *  returned. This data could be displayed for one reason or another, or ignored. It's at the discretion of the client.
  *  For the most part, it will be used to make sure the user was created correctly.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder

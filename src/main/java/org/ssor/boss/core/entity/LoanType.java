@@ -1,24 +1,29 @@
 package org.ssor.boss.core.entity;
 
 /**
+ * Describes the different types of loans.
+ *
  * @author Derrian Harris
  */
-public enum LoanType {
-    LOAN_STUDENT("Student"),
-    LOAN_PERSONAL("Personal");
+public enum LoanType
+{
+  LOAN_STUDENT,
+  LOAN_PERSONAL;
 
-    private final String name;
+  public int index()
+  {
+    return ordinal();
+  }
 
-    LoanType(String name) {
-        this.name = name;
-    }
+  @Override
+  public String toString()
+  {
+    String result = "";
+    if (this == LOAN_STUDENT)
+      result = "Student";
+    else if (this == LOAN_PERSONAL)
+      result = "Personal";
 
-    public int index() {
-        return ordinal();
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
-    }
+    return result;
+  }
 }

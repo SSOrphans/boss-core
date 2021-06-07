@@ -12,11 +12,11 @@ import javax.validation.constraints.Size;
 /**
  * Represents the data of a User that can be updated.
  * <p>
- * User profiles contain their username, email, and password. User profiles
- * don't typically contain their account holder information. This information
- * should be updated or changed separately, if it is possible for a user to do
- * so.
+ * User profiles contain their username, email, and password. User profiles don't typically contain their account holder
+ * information. This information should be updated or changed separately, if it is possible for a user to do so.
  * </p>
+ *
+ * @author Christian Angeles
  */
 @Data
 @Builder
@@ -26,7 +26,7 @@ public class UpdateUserInput {
 	private int userId;
 
 	// TODO:
-	// decide how and if we should allow users to update their branch.
+	//   Decide how and if we should allow users to update their branch.
 
 	@Size(min = 2, max = 16)
 	@Pattern(regexp = "^[a-zA-Z]+([_-]?[a-zA-Z0-9])*$", message = "Please provide a valid username")

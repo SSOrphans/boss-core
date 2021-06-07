@@ -14,6 +14,8 @@ import java.util.Map;
  *   both success and failure messages and provide as much information as possible on validation errors when failures
  *   occur.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder

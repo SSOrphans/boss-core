@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
  *   information is generally limited. The results of getting a secure user is mostly for checking that a user exists,
  *   more so than getting that user's information.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder

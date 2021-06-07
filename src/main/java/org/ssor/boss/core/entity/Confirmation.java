@@ -13,52 +13,44 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Describes the information of a transaction.
+ * Describes a confirmation entry.
  *
- * @author Bermond Jon Batistiana
+ * @author John Christman
  */
 @Data
 @Entity
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "transaction", schema = "boss", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id")
+@AllArgsConstructor
+@Table(name = "confirmation", schema = "boss", uniqueConstraints = {
+  @UniqueConstraint(columnNames = "id"),
+  @UniqueConstraint(columnNames = "confirmation_hash")
 })
-public class Transaction implements Serializable
+public class Confirmation implements Serializable
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   @Enumerated
   @Column(name = "type_id")
-  private TransactionType type;
-  @Column(name = "account_id")
-  private Integer accountId;
-  @Column(name = "overdraft_id")
-  private Integer overdraftId;
-  @Column(name = "atm_transaction_id")
-  private Integer atmTransactionId;
-  @Column(name = "merchant_name")
-  private String merchantName;
-  private Float amount;
-  @Column(name = "new_balance")
-  private Float newBalance;
-  private LocalDateTime date;
-  private Boolean succeeded;
-  private Boolean pending;
+  private ConfirmationType type;
+  @Column(name = "confirmable_id")
+  private int confirmableId;
+  @Column(name = "confirmation_hash")
+  private String confirmationHash;
+  @Column(name = "good_until")
+  private long goodUntil;
 
   @Override
   public boolean equals(Object o)
   {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Transaction that = (Transaction) o;
-    return id.equals(that.id);
+    Confirmation that = (Confirmation) o;
+    return Objects.equals(id, that.id);
   }
 
   @Override

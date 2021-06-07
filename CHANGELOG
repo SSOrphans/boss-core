@@ -21,9 +21,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update user input transfer object
 - tests for each added object
 
-## [1.1.0] - 2021-04-25
+## [1.1.0] - 2021-05-03
+
+### Added
+
+- Card Entity
+- Card Repository
+- Card Type
+- Confirmation Entity
+- Confirmation Repository
+- Confirmation Service
+- Confirmation Type
+- Loan Entity
+- Loan Repository
+- Loan Type
+- Password Configuration
 
 ### Changed
 
 - User created and deleted from DATETIME to long
 - User changes reflected in all classes which use it or replicate its data
+
+## [1.2.0] - 2021-05-13
+
+### Added
+
+- Account Entity
+- Account Holder Entity
+- Account Type
+- Account Holder Repository
+- Transaction Entity
+- Transaction Type

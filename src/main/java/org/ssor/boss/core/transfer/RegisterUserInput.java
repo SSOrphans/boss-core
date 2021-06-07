@@ -21,6 +21,8 @@ import java.io.Serializable;
  * user will be registered. When successful, a {@link RegisterUserOutput} will
  * be sent back through the gateway to the client.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder

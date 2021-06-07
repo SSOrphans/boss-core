@@ -1,25 +1,37 @@
 package org.ssor.boss.core.entity;
 
 /**
+ * Describes the different types of debit cards a user can have on their account.
+ *
  * @author Derrian Harris
  */
-public enum CardType {
-    CARD_PLAIN("Plain"),
-    CARD_GOLD("Gold"),
-    CARD_PLATINUM("Platinum");
+public enum CardType
+{
+  CARD_PLAIN,
+  CARD_GOLD,
+  CARD_PLATINUM;
 
-    private final String name;
+  public int index()
+  {
+    return ordinal();
+  }
 
-    CardType(String name) {
-        this.name = name;
+  @Override
+  public String toString()
+  {
+    String result;
+    switch (this)
+    {
+      case CARD_PLAIN:
+        result = "Plain"; break;
+      case CARD_GOLD:
+        result = "Gold"; break;
+      case CARD_PLATINUM:
+        result = "Platinum"; break;
+      default:
+        result = "Undefined"; break;
     }
 
-    public int index() {
-        return ordinal();
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
-    }
+    return result;
+  }
 }

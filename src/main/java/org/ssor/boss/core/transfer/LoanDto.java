@@ -3,7 +3,6 @@ package org.ssor.boss.core.transfer;
 import lombok.Data;
 import org.ssor.boss.core.entity.Loan;
 import org.ssor.boss.core.entity.LoanType;
-
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,35 +11,33 @@ import java.time.LocalDateTime;
  * @author Derrian Harris
  */
 @Data
-public class LoanDto {
-    private Integer id;
-    @NotNull
-    private Float amount;
-    @NotNull
-    private Float interestRate;
-    @NotNull
-    private Integer userId;
-    @NotNull
-    private Integer branchId;
-    @NotNull
-    private LoanType loanType;
-    @NotNull
-    private LocalDate dueBy;
-    private LocalDateTime takenAt;
-    private Float amountDue;
+public class LoanDto
+{
+  private Integer id;
+  @NotNull
+  private String loanNumber;
+  private LoanType type;
+  private int userId;
+  private int branchId;
+  private float amount;
+  private float interestRate;
+  private LocalDateTime takenAt;
+  private LocalDate dueBy;
+  private float amountDue;
 
-
-    public Loan convertToLoanEntity() {
-        Loan loan = new Loan();
-        loan.setId(id);
-        loan.setAmount(amount);
-        loan.setUserId(userId);
-        loan.setBranchId(branchId);
-        loan.setInterestRate(interestRate);
-        loan.setTakenAt(takenAt);
-        loan.setLoanType(loanType);
-        loan.setAmountDue(amountDue);
-        loan.setDueBy(dueBy);
-        return loan;
-    }
+  public Loan convertToLoanEntity()
+  {
+    Loan loan = new Loan();
+    loan.setId(id);
+    loan.setType(type);
+    loan.setLoanNumber(loanNumber);
+    loan.setAmount(amount);
+    loan.setUserId(userId);
+    loan.setBranchId(branchId);
+    loan.setInterestRate(interestRate);
+    loan.setTakenAt(takenAt);
+    loan.setAmountDue(amountDue);
+    loan.setDueBy(dueBy);
+    return loan;
+  }
 }
