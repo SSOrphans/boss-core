@@ -59,16 +59,16 @@ CREATE TABLE IF NOT EXISTS boss.confirmation
 
 CREATE TABLE IF NOT EXISTS boss.account_holder
 (
-  user_id		INT UNSIGNED	NOT NULL UNIQUE,
-  full_name		VARCHAR(64)		NOT NULL,
-  dob			DATE			NOT NULL,
-  ssn			CHAR(64)		NOT NULL UNIQUE,
-  address		CHAR(255)		NOT NULL,
-  city			CHAR(64) 		NOT NULL,
-  state			CHAR(32)		NOT NULL,
-  zip			INT				NOT NULL,
-  phone			CHAR(16)		NOT NULL,
+    user_id		INT UNSIGNED	NOT NULL UNIQUE,
+    full_name	VARCHAR(64)		NOT NULL,
+    dob			DATE			NOT NULL,
+    ssn			CHAR(64)		NOT NULL UNIQUE,
+    address		CHAR(255)		NOT NULL,
+    city		CHAR(64) 		NOT NULL,
+    state		CHAR(32)		NOT NULL,
+    zip			INT				NOT NULL,
+    phone		CHAR(16)		NOT NULL,
 
-  PRIMARY KEY	(user_id),
-  FOREIGN KEY	(user_id) REFERENCES boss.user (id)
+    PRIMARY KEY	(user_id),
+    FOREIGN KEY	(user_id) REFERENCES boss.user (id)
 );

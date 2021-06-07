@@ -12,9 +12,9 @@ VALUES ('1234567890', 0, 1, 1, 50000, 0.02, NOW(), NOW(), 25000);
 INSERT INTO boss.loan (loan_number, type_id, user_id, branch_id, amount, interest_rate, taken_at, due_by, amount_due)
 VALUES ('2345678901', 1, 1, 1, 25000, 0.1, NOW(), NOW(), 5000);
 
-INSERT INTO boss.card (type_id, number_hash, account_id, created, active_since, expiration_date, pin, cvv, confirmed,
+INSERT INTO boss.card (type_id, number_hash, last_four, account_id, created, active_since, expiration_date, pin, cvv, confirmed,
                        active, stolen)
-VALUES (0, '1234567890123456', 1, NOW(), NOW(), NOW(), 1111, 111, TRUE, TRUE, FALSE);
+VALUES (0, '1234567890123456', '3456', 1, 0, 0, 0, 1111, 111, TRUE, TRUE, FALSE);
 
 insert into boss.account_holder(user_id, full_name, dob, ssn, address, city, state, zip, phone)
 values(1, 'Trevor Philips', 20130917, '123-45-6789', '16703 Nicklaus Dr', 'Los Anglees', 'CA', 91342, '+12735550136');
