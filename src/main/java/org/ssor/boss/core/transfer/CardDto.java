@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.ssor.boss.core.entity.Card;
 import org.ssor.boss.core.entity.CardType;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * @author Derrian Harris
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @Deprecated(since = "1.2.0", forRemoval = true)
-public class CardDto
+public class CardDto implements Serializable
 {
   private int id;
   @NotNull

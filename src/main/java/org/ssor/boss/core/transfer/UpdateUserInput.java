@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Represents the data of a User that can be updated.
@@ -22,7 +23,8 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserInput {
+public class UpdateUserInput implements Serializable
+{
 	private int userId;
 
 	// TODO:

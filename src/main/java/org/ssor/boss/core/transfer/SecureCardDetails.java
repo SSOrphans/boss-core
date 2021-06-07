@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.ssor.boss.core.entity.Card;
 import org.ssor.boss.core.entity.CardType;
+import java.io.Serializable;
 
 /**
  * Provides details about a a user's card in a safe manner.
@@ -21,7 +22,7 @@ import org.ssor.boss.core.entity.CardType;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecureCardDetails
+public class SecureCardDetails implements Serializable
 {
   private int id;
   private CardType type;

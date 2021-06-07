@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.entity.UserType;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecureUserDetails
+public class SecureUserDetails implements Serializable
 {
   private int id;
   private UserType type;

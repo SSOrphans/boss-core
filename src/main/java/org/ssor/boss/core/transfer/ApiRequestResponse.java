@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiRequestResponse
+public class ApiRequestResponse implements Serializable
 {
   private long timestamp;
   private int status;

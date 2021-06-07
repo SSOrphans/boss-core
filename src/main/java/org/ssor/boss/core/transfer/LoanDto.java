@@ -4,6 +4,7 @@ import lombok.Data;
 import org.ssor.boss.core.entity.Loan;
 import org.ssor.boss.core.entity.LoanType;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * @author Derrian Harris
  */
 @Data
-public class LoanDto
+public class LoanDto implements Serializable
 {
   private Integer id;
   @NotNull
