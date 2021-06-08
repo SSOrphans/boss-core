@@ -60,6 +60,11 @@ public class AccountHolder implements Serializable
 	private String state;
 	private Integer zip;
 	private String phone;
+
+	@OneToMany
+	@JoinTable(name = "user_cards", joinColumns = @JoinColumn(name = "user_id"),
+						 inverseJoinColumns = @JoinColumn(name = "card_id"))
+	private List<Card> cards;
 	
 	@Override
 	public int hashCode()

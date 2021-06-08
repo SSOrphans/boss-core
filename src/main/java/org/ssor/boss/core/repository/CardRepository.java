@@ -13,5 +13,4 @@ import org.ssor.boss.core.entity.Card;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Integer>
 {
-
 }
