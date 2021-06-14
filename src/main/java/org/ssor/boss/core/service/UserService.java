@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.ssor.boss.core.entity.AccountHolder;
 import org.ssor.boss.core.entity.UserType;
 import org.ssor.boss.core.exception.NoSuchUserException;
 import org.ssor.boss.core.exception.UserAlreadyExistsException;
@@ -52,7 +53,12 @@ public class UserService implements UserDetailsService
     final var result = userRepository.getUserByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
     if (result.isEmpty())
       throw new UsernameNotFoundException("User with username or email not found");
-    log.debug(result.toString());
+
+    final var user = result.get();
+    if (user.getDeleted() != null)
+      throw new UsernameNotFoundException("User with username or email not found");
+
+    log.debug("Loaded user: " + user);
     return result.get();
   }
 
@@ -101,9 +107,10 @@ public class UserService implements UserDetailsService
       throw new UserAlreadyExistsException();
 
     final var password = passwordEncoder.encode(registerUserInput.getPassword());
-    final var user = new User(null, UserType.USER_DEFAULT, 1, username, email, password, created.toEpochMilli(), null, false, false);
+    final var user = new User(null, UserType.USER_DEFAULT, 1, username, email, password, created.toEpochMilli(), null, false, false, new AccountHolder());
     final var result = userRepository.save(user);
     final var output = new RegisterUserOutput();
+    log.debug("Created new User: " + user);
 
     output.setId(result.getId());
     output.setTypeId(result.getType().index());
@@ -126,6 +133,10 @@ public class UserService implements UserDetailsService
       throw new NoSuchUserException(userId);
 
     final var user = optionalUser.get();
+    if (user.getDeleted() != null)
+      throw new NoSuchUserException(userId);
+
+    log.debug("Confirmed user: " + user);
     user.setEnabled(true);
     userRepository.save(user);
   }
@@ -145,6 +156,9 @@ public class UserService implements UserDetailsService
       throw new NoSuchUserException(userId);
 
     final var user = optionalUser.get();
+    if (user.getDeleted() != null)
+      throw new NoSuchUserException(userId);
+
     user.setUsername(updateUserInput.getUsername());
     user.setEmail(updateUserInput.getEmail());
     user.setPassword(updateUserInput.getPassword());
@@ -186,7 +200,11 @@ public class UserService implements UserDetailsService
     if (possibleUser.isEmpty())
       return Optional.empty();
 
-    final var secureUserDetails = new SecureUserDetails(possibleUser.get());
+    final var user = possibleUser.get();
+    if (user.getDeleted() != null)
+      return Optional.empty();
+
+    final var secureUserDetails = new SecureUserDetails(user);
     return Optional.of(secureUserDetails);
   }
 
@@ -224,6 +242,8 @@ public class UserService implements UserDetailsService
 
     // Get user, update deleted property.
     final var user = possibleUser.get();
+    if (user.getDeleted() != null)
+      return;
     user.setDeleted(deleted);
     userRepository.save(user);
   }

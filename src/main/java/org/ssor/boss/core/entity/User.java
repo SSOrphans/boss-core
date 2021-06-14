@@ -7,12 +7,17 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
@@ -76,6 +81,10 @@ public class User implements UserDetails, Serializable
   private Long deleted = null;
   private boolean enabled = false;
   private boolean locked = false;
+
+  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  private AccountHolder holder;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities()

@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class SecureCardDetails implements Serializable
 {
   private int id;
-  private CardType type;
+  private int type;
   private short lastFour;
   private long created;
   private long activatedSince;
@@ -42,7 +42,7 @@ public class SecureCardDetails implements Serializable
   public SecureCardDetails(Card card)
   {
     id = card.getId();
-    type = card.getType();
+    type = card.getType().index();
     lastFour = card.getLastFour();
     created = card.getCreated();
     activatedSince = card.getActiveSince();

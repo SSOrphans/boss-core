@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -37,8 +39,9 @@ import lombok.Setter;
  *
  * @author Christian Angeles
  */
-@Data
 @Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,8 +64,14 @@ public class AccountHolder implements Serializable
 	private Integer zip;
 	private String phone;
 
+	@MapsId
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	@OneToMany
-	@JoinTable(name = "user_cards", joinColumns = @JoinColumn(name = "user_id"),
+	@JoinTable(name = "user_cards", schema = "boss",
+						 joinColumns = @JoinColumn(name = "user_id"),
 						 inverseJoinColumns = @JoinColumn(name = "card_id"))
 	private List<Card> cards;
 	
