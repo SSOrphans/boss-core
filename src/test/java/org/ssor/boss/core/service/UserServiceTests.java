@@ -52,10 +52,10 @@ public class UserServiceTests
   {
     // Populate fake users.
     final var created = Instant.now().toEpochMilli();
-    final var user1 = new User(1, UserType.USER_DEFAULT, 1, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD, created, null, true, false);
-    final var user2 = new User(2, UserType.USER_DEFAULT, 1, "Monkey", "monkey@gmail.com", FAKE_PASSWORD, created, null, false, false);
-    final var user3 = new User(3, UserType.USER_DEFAULT, 1, "Fish", "fish@gmail.com", FAKE_PASSWORD, created, null, true, false);
-    final var user4 = new User(4, UserType.USER_DEFAULT, 1, "LeftRuleMatters", "john.christman@smoothstack.com", FAKE_PASSWORD, created, null, true, false);
+    final var user1 = new User(1, UserType.USER_DEFAULT, 1, "SoraKatadzuma", "sorakatadzuma@gmail.com", FAKE_PASSWORD, created, null, true, false, null);
+    final var user2 = new User(2, UserType.USER_DEFAULT, 1, "Monkey", "monkey@gmail.com", FAKE_PASSWORD, created, null, false, false, null);
+    final var user3 = new User(3, UserType.USER_DEFAULT, 1, "Fish", "fish@gmail.com", FAKE_PASSWORD, created, null, true, false, null);
+    final var user4 = new User(4, UserType.USER_DEFAULT, 1, "LeftRuleMatters", "john.christman@smoothstack.com", FAKE_PASSWORD, created, null, true, false, null);
 
     mockUsers = Lists.newArrayList(user1, user2, user3, user4);
     userService = new UserService(userRepository, passwordEncoder);
@@ -131,8 +131,8 @@ public class UserServiceTests
     final var input = new RegisterUserInput(username, email, FAKE_PASSWORD);
     final var created = Instant.now();
     final var milli = created.toEpochMilli();
-    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
-    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false);
+    final var newUser = new User(null, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false, null);
+    final var registered = new User(5, UserType.USER_DEFAULT, 1, username, email, FAKE_PASSWORD, milli, null, false, false, null);
     final var output = new RegisterUserOutput(5, UserType.USER_DEFAULT.index(), 1, username, email, milli);
     doAnswer(invocationOnMock -> {
       mockUsers.add(registered);

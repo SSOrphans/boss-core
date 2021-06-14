@@ -3,6 +3,7 @@ package org.ssor.boss.core.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +33,6 @@ import java.time.LocalDateTime;
 public class Transaction
 {
   @Id
-  @NonNull
   @Column(name = "id")
   @EqualsAndHashCode.Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
