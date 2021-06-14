@@ -3,6 +3,7 @@ package org.ssor.boss.core.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Describes the information of an account entity.
@@ -28,7 +30,6 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Table(name = "account", schema = "boss", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id")
@@ -37,12 +38,11 @@ public class Account implements Serializable
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  @EqualsAndHashCode.Include
+  private Long id;
   @Enumerated
   @Column(name = "type_id")
   private AccountType accountType;
-  @EqualsAndHashCode.Include
-  private Long id;
   @Column(name = "name")
   private String name;
   private Float balance;

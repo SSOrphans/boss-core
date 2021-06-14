@@ -49,8 +49,8 @@ public class Card implements Serializable
   private long activeSince;
   @Column(name = "expiration_date")
   private long expirationDate;
-  private int pin;
-  private int cvv;
+  private String pin;
+  private String cvv;
   private boolean confirmed;
   private boolean active;
   private boolean stolen;

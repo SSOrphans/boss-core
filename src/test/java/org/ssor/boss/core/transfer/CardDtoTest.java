@@ -38,8 +38,8 @@ public class CardDtoTest
     cardDtoA.setAccountId(1);
     cardDtoA.setCreated(currTime);
     cardDtoA.setExpirationDate(expiry);
-    cardDtoA.setPin(1111);
-    cardDtoA.setCvv(111);
+    cardDtoA.setPin("1111");
+    cardDtoA.setCvv("111");
     cardDtoA.setActive(false);
     cardDtoA.setConfirmed(false);
     cardDtoA.setStolen(false);
@@ -50,8 +50,8 @@ public class CardDtoTest
     cardDtoB.setAccountId(1);
     cardDtoB.setCreated(currTime);
     cardDtoB.setExpirationDate(expiry);
-    cardDtoB.setPin(1111);
-    cardDtoB.setCvv(111);
+    cardDtoB.setPin("1111");
+    cardDtoB.setCvv("111");
     cardDtoB.setActive(false);
     cardDtoB.setConfirmed(false);
     cardDtoB.setStolen(false);
@@ -64,8 +64,8 @@ public class CardDtoTest
     cardDtoC.setAccountId(2);
     cardDtoC.setCreated(otherCreated);
     cardDtoC.setExpirationDate(otherExpiry);
-    cardDtoC.setPin(2222);
-    cardDtoC.setCvv(222);
+    cardDtoC.setPin("2222");
+    cardDtoC.setCvv("222");
     cardDtoC.setActive(true);
     cardDtoC.setConfirmed(true);
     cardDtoC.setStolen(true);
@@ -87,8 +87,8 @@ public class CardDtoTest
     cardDtoA.setAccountId(1);
     cardDtoA.setCreated(currTime);
     cardDtoA.setExpirationDate(expiry);
-    cardDtoA.setPin(1111);
-    cardDtoA.setCvv(111);
+    cardDtoA.setPin("1111");
+    cardDtoA.setCvv("111");
     cardDtoA.setActive(false);
     cardDtoA.setConfirmed(false);
     cardDtoA.setStolen(false);
@@ -100,8 +100,8 @@ public class CardDtoTest
     cardB.setAccountId(1);
     cardB.setCreated(currTime);
     cardB.setExpirationDate(expiry);
-    cardB.setPin(1111);
-    cardB.setCvv(111);
+    cardB.setPin("1111");
+    cardB.setCvv("111");
     cardB.setActive(false);
     cardB.setConfirmed(false);
     cardB.setStolen(false);

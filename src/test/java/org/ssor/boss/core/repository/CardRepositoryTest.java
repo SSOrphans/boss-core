@@ -27,8 +27,8 @@ public class CardRepositoryTest
     assertThat(result.getCreated()).isNotNull();
     assertThat(result.getActiveSince()).isNotNull();
     assertThat(result.getExpirationDate()).isNotNull();
-    assertThat(result.getPin()).isNotNull().isEqualTo(1111);
-    assertThat(result.getCvv()).isNotNull().isEqualTo(111);
+    assertThat(result.getPin()).isNotNull().isEqualTo("1111");
+    assertThat(result.getCvv()).isNotNull().isEqualTo("111");
     assertThat(result.isConfirmed()).isNotNull().isEqualTo(true);
     assertThat(result.isActive()).isNotNull().isEqualTo(true);
     assertThat(result.isStolen()).isNotNull().isEqualTo(false);
