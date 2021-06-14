@@ -7,6 +7,7 @@ package org.ssor.boss.core.entity;
  */
 public enum AccountType
 {
+  ACCOUNT_INVALID,
   ACCOUNT_SAVING,
   ACCOUNT_CHECKING,
   ACCOUNT_CREDIT;

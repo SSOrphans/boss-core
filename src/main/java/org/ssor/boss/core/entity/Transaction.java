@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * Describes the information of a transaction.
@@ -26,12 +25,16 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "transaction", schema = "boss", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id")
 })
-public class Transaction implements Serializable
+public class Transaction
 {
   @Id
+  @NonNull
+  @Column(name = "id")
+  @EqualsAndHashCode.Include
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   @Enumerated
@@ -51,19 +54,4 @@ public class Transaction implements Serializable
   private LocalDateTime date;
   private Boolean succeeded;
   private Boolean pending;
-
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Transaction that = (Transaction) o;
-    return id.equals(that.id);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(id);
-  }
 }

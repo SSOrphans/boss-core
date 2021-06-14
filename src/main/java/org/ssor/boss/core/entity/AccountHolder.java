@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -74,7 +72,7 @@ public class AccountHolder implements Serializable
 						 joinColumns = @JoinColumn(name = "user_id"),
 						 inverseJoinColumns = @JoinColumn(name = "card_id"))
 	private List<Card> cards;
-	
+
 	@Override
 	public int hashCode()
 	{
@@ -93,5 +91,5 @@ public class AccountHolder implements Serializable
 		AccountHolder holder = (AccountHolder) o;
 		return Objects.equals(userId, holder.userId) && Objects.equals(ssn, holder.ssn);
 	}
-	
+
 }

@@ -18,7 +18,6 @@ import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Describes the information of an account entity.
@@ -29,6 +28,7 @@ import java.util.Objects;
 @Entity
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @Table(name = "account", schema = "boss", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id")
@@ -41,6 +41,9 @@ public class Account implements Serializable
   @Enumerated
   @Column(name = "type_id")
   private AccountType accountType;
+  @EqualsAndHashCode.Include
+  private Long id;
+  @Column(name = "name")
   private String name;
   private Float balance;
   private LocalDateTime opened;
