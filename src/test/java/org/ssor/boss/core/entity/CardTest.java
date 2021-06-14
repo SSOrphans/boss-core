@@ -37,8 +37,8 @@ public class CardTest
     cardA.setCreated(created);
     cardA.setActiveSince(created);
     cardA.setExpirationDate(expirationDate);
-    cardA.setPin(1111);
-    cardA.setCvv(111);
+    cardA.setPin("1111");
+    cardA.setCvv("111");
     cardA.setActive(false);
     cardA.setConfirmed(false);
     cardA.setStolen(false);
@@ -50,8 +50,8 @@ public class CardTest
     cardB.setCreated(created);
     cardB.setActiveSince(created);
     cardB.setExpirationDate(expirationDate);
-    cardB.setPin(1111);
-    cardB.setCvv(111);
+    cardB.setPin("1111");
+    cardB.setCvv("111");
     cardB.setActive(false);
     cardB.setConfirmed(false);
     cardB.setStolen(false);
@@ -65,8 +65,8 @@ public class CardTest
     cardC.setCreated(createdOther);
     cardC.setActiveSince(createdOther);
     cardC.setExpirationDate(otherExpiration);
-    cardC.setPin(2222);
-    cardC.setCvv(222);
+    cardC.setPin("2222");
+    cardC.setCvv("222");
     cardC.setActive(true);
     cardC.setConfirmed(true);
     cardC.setStolen(true);
@@ -88,8 +88,8 @@ public class CardTest
     cardA.setCreated(created);
     cardA.setActiveSince(created);
     cardA.setExpirationDate(expirationDate);
-    cardA.setPin(1111);
-    cardA.setCvv(111);
+    cardA.setPin("1111");
+    cardA.setCvv("111");
     cardA.setActive(false);
     cardA.setConfirmed(false);
     cardA.setStolen(false);
@@ -102,8 +102,8 @@ public class CardTest
     cardDtoB.setCreated(created);
     cardDtoB.setActiveSince(created);
     cardDtoB.setExpirationDate(expirationDate);
-    cardDtoB.setPin(1111);
-    cardDtoB.setCvv(111);
+    cardDtoB.setPin("1111");
+    cardDtoB.setCvv("111");
     cardDtoB.setActive(false);
     cardDtoB.setConfirmed(false);
     cardDtoB.setStolen(false);

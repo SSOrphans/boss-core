@@ -140,10 +140,17 @@ public class UserServiceTests
     }).when(userRepository).save(eq(newUser));
 
     final var captor = ArgumentCaptor.forClass(User.class);
-    final var result = userService.registerNewUser(input, created);
-    verify(userRepository).save(captor.capture());
-    assertThat(captor.getValue()).isEqualTo(newUser);
-    assertThat(result).isEqualTo(output);
+    try
+    {
+      final var result = userService.registerNewUser(input, created);
+      verify(userRepository).save(captor.capture());
+      assertThat(captor.getValue()).isEqualTo(newUser);
+      assertThat(result).isEqualTo(output);
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
   }
 
   @Test

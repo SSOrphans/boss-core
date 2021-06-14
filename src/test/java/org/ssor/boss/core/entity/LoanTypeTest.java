@@ -19,7 +19,7 @@ public class LoanTypeTest
   @Test
   void test_CanConvertEnumerationToString()
   {
-    assertThat(LoanType.LOAN_UNKNOWN.toString()).isEqualTo("");
+    assertThat(LoanType.LOAN_UNKNOWN.toString()).isEqualTo("Unknown");
     assertThat(LoanType.LOAN_STUDENT.toString()).isEqualTo("Student");
     assertThat(LoanType.LOAN_PERSONAL.toString()).isEqualTo("Personal");
   }

@@ -18,8 +18,8 @@ public class CardDto implements Serializable
   private int id;
   @NotNull
   private String numberHash;
-  private int pin;
-  private int cvv;
+  private String pin;
+  private String cvv;
   private int accountId;
   private CardType cardType;
   private long created;
