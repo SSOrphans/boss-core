@@ -1,25 +1,14 @@
 package org.ssor.boss.core.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Objects;
+import java.io.Serializable;
+
 
 /**
  * Describes the information of an account entity.
@@ -46,8 +35,11 @@ public class Account implements Serializable
   @Column(name = "name")
   private String name;
   private Float balance;
-  private LocalDateTime opened;
-  private LocalDateTime closed;
+  @Column(name = "opened")
+  private LocalDate opened;
+  @Column(name = "closed")
+  private LocalDate closed;
+  @Column(name = "confirmed")
   private Boolean confirmed;
   private Boolean active;
   @Column(name = "branch_id")
