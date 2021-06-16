@@ -3,7 +3,7 @@ package org.ssor.boss.core.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,9 +23,9 @@ public class Account
   @Column(name = "balance")
   private Float balance;
   @Column(name = "opened")
-  private LocalDateTime opened;
+  private LocalDate opened;
   @Column(name = "closed")
-  private LocalDateTime closed;
+  private LocalDate closed;
   @Column(name = "confirmed")
   private Boolean confirmed;
   @Column(name = "active")
