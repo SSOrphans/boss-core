@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 import org.ssor.boss.core.entity.Confirmation;
 import java.util.Optional;
 
+/**
+ * A repository for managing confirmations.
+ *
+ * @author John Christman
+ */
 @Repository
 public interface ConfirmationRepository extends JpaRepository<Confirmation, Integer>
 {

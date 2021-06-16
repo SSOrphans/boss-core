@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -14,12 +15,14 @@ import java.util.Map;
  *   both success and failure messages and provide as much information as possible on validation errors when failures
  *   occur.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiRequestResponse
+public class ApiRequestResponse implements Serializable
 {
   private long timestamp;
   private int status;

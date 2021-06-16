@@ -49,7 +49,7 @@ public class SecureUserDetailsTests
   {
     final var email = "john.christman@smoothstack.com";
     final var fakePassword = "D8A4D80f7C27F25067E56671B1AA4f7172E3C7418DE442fDF42fF49CF49FE20E";
-    final var user = new User(1, UserType.USER_DEFAULT, 1, USER_NAME, email, fakePassword, CREATED, null, false, false);
+    final var user = new User(1, UserType.USER_DEFAULT, 1, USER_NAME, email, fakePassword, CREATED, null, false, false, null);
     secureUserDetails1 = new SecureUserDetails(user);
     assertThat(secureUserDetails1).isNotNull();
     assertThat(secureUserDetails1.getId()).isEqualTo(1);

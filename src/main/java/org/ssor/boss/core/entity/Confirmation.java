@@ -12,10 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Describes a confirmation entry.
+ *
+ * @author John Christman
  */
 @Data
 @Entity
@@ -26,7 +29,7 @@ import java.util.Objects;
   @UniqueConstraint(columnNames = "id"),
   @UniqueConstraint(columnNames = "confirmation_hash")
 })
-public class Confirmation
+public class Confirmation implements Serializable
 {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

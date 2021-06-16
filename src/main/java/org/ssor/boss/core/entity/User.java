@@ -4,11 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,70 +52,80 @@ import java.util.Objects;
  * APIs. They do not have full reign of the API, but are given access to parts of the API that normal users are not.
  * Vendor applications, specifically, are capable of issuing transactions through our external APIs.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "holder")
 @Table(name = "user", schema = "boss", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "id"),
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
+    @UniqueConstraint(columnNames = "id"),
+    @UniqueConstraint(columnNames = "username"),
+    @UniqueConstraint(columnNames = "email")
 })
-public class User implements UserDetails, Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Enumerated
-    @Column(name = "type_id")
-    private UserType type;
-    @Column(name = "branch_id")
-    private Integer branchId;
-    private String username;
-    private String email;
-    private String password;
-    private long created;
-    private Long deleted = null;
-    private boolean enabled = false;
-    private boolean locked = false;
+public class User implements UserDetails, Serializable
+{
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+  @Enumerated
+  @Column(name = "type_id")
+  private UserType type;
+  @Column(name = "branch_id")
+  private Integer branchId;
+  private String username;
+  private String email;
+  private String password;
+  private long created;
+  private Long deleted = null;
+  private boolean enabled = false;
+  private boolean locked = false;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        final var authority = new SimpleGrantedAuthority(type.name());
-        return Collections.singletonList(authority);
-    }
+  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  private AccountHolder holder;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return deleted == null;
-    }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities()
+  {
+    final var authority = new SimpleGrantedAuthority(type.name());
+    return Collections.singletonList(authority);
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return !locked;
-    }
+  @Override
+  public boolean isAccountNonExpired()
+  {
+    return deleted == null;
+  }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+  @Override
+  public boolean isAccountNonLocked()
+  {
+    return !locked;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-          return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-          return false;
-        }
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) &&
-                Objects.equals(email, user.email);
-    }
+  @Override
+  public boolean isCredentialsNonExpired()
+  {
+    return true;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email);
-    }
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User user = (User) o;
+    return Objects.equals(id, user.id) && Objects.equals(username, user.username) &&
+           Objects.equals(email, user.email);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(id, username, email);
+  }
 }
