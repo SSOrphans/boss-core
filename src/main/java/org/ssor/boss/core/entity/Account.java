@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.io.Serializable;
 
+
 /**
  * Describes the information of an account entity.
  *
@@ -39,7 +40,6 @@ public class Account implements Serializable
   @Column(name = "closed")
   private LocalDate closed;
   @Column(name = "confirmed")
-
   private Boolean confirmed;
   private Boolean active;
   @Column(name = "branch_id")
