@@ -16,6 +16,8 @@ import java.util.UUID;
  *   Confirmation entries are generated from a small set of data, consisting of: the type of confirmation to generate,
  *   the id of the object to confirm, and the expiration time of the confirmation in milliseconds.
  * </p>
+ *
+ * @author John Christman
  */
 @Service
 @AllArgsConstructor

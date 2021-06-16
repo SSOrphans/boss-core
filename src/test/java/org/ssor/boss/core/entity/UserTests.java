@@ -42,7 +42,7 @@ public class UserTests
   @Test
   void test_CanConstructWithAllParameters()
   {
-    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false);
+    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false, null);
     assertThat(user1).isNotNull();
   }
 
@@ -105,9 +105,9 @@ public class UserTests
   void test_CanCompareWithEquals()
   {
     // Note, they have different IDs, usernames, and emails.
-    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false);
-    user2 = new User(2, TYPE_ID, 1, "Monkey", "monk@e.mail", FAKE_PASSWORD, CREATED, null, true, false);
-    user3 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false);
+    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false, null);
+    user2 = new User(2, TYPE_ID, 1, "Monkey", "monk@e.mail", FAKE_PASSWORD, CREATED, null, true, false, null);
+    user3 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false, null);
     assertThat(user1).isNotEqualTo(user2);
     assertThat(user1).isEqualTo(user3);
   }
@@ -116,9 +116,9 @@ public class UserTests
   void test_CanCompareWithHashCode()
   {
     // Note, they have different IDs, usernames, and emails.
-    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false);
-    user2 = new User(2, TYPE_ID, 1,"Monkey", "monk@e.mail", FAKE_PASSWORD, CREATED, null, true, false);
-    user3 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false);
+    user1 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false, null);
+    user2 = new User(2, TYPE_ID, 1,"Monkey", "monk@e.mail", FAKE_PASSWORD, CREATED, null, true, false, null);
+    user3 = new User(1, TYPE_ID, 1, USER_NAME, EMAIL, FAKE_PASSWORD, CREATED, null, true, false, null);
     assertThat(user1.hashCode()).isNotEqualTo(user2.hashCode());
     assertThat(user1.hashCode()).isEqualTo(user3.hashCode());
   }

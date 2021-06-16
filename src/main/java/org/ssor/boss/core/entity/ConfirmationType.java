@@ -6,6 +6,8 @@ package org.ssor.boss.core.entity;
  *   <code>ConfirmationType</code> is used to determine what the type of a confirmation's <code>confirmable_id</code> is.
  *   Without this it would be impossible to know what was being confirmed through the confirmation table.
  * </p>
+ *
+ * @author John Christman
  */
 public enum ConfirmationType
 {

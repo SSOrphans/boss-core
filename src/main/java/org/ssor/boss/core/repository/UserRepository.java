@@ -7,6 +7,8 @@ import java.util.Optional;
 
 /**
  * Defines a repository capable of performing actions on a database containing {@link User}s of a given schema.
+ *
+ * @author John Christman
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>

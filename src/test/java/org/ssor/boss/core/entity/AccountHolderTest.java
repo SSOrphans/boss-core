@@ -42,7 +42,7 @@ public class AccountHolderTest
 	@Test
 	void test_CanConstructWithAllParameters()
 	{
-		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone);
+		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone, null, null);
 		assertThat(accountHolder1).isNotNull();
 	}
 
@@ -93,9 +93,9 @@ public class AccountHolderTest
 	void test_CanCompareWithEquals()
 	{
 		// Note, they have different IDs and SSN.
-		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone);
-		accountHolder2 = new AccountHolder(2, fullName, dob, "234-56-7890", address, city, state, zip, phone);
-		accountHolder3 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone);
+		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone, null, null);
+		accountHolder2 = new AccountHolder(2, fullName, dob, "234-56-7890", address, city, state, zip, phone, null, null);
+		accountHolder3 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone, null, null);
 		assertThat(accountHolder1).isNotEqualTo(accountHolder2);
 		assertThat(accountHolder1).isEqualTo(accountHolder3);
 	}
@@ -104,9 +104,9 @@ public class AccountHolderTest
 	void test_CanCompareWithHashCode()
 	{
 		// Note, they have different IDs and SSN.
-		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone);
-		accountHolder2 = new AccountHolder(2, fullName, dob, "234-56-7890", address, city, state, zip, phone);
-		accountHolder3 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone);
+		accountHolder1 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone, null, null);
+		accountHolder2 = new AccountHolder(2, fullName, dob, "234-56-7890", address, city, state, zip, phone, null, null);
+		accountHolder3 = new AccountHolder(userId, fullName, dob, ssn, address, city, state, zip, phone, null, null);
 		assertThat(accountHolder1.hashCode()).isNotEqualTo(accountHolder2.hashCode());
 		assertThat(accountHolder1.hashCode()).isEqualTo(accountHolder3.hashCode());
 	}

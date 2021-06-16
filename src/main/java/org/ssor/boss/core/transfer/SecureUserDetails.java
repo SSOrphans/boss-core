@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.entity.UserType;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,12 +16,14 @@ import java.time.LocalDateTime;
  *   information is generally limited. The results of getting a secure user is mostly for checking that a user exists,
  *   more so than getting that user's information.
  * </p>
+ *
+ * @author John Christman
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecureUserDetails
+public class SecureUserDetails implements Serializable
 {
   private int id;
   private UserType type;
