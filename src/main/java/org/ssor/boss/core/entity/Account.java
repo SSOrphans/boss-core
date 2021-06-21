@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.io.Serializable;
 
-
 /**
  * Describes the information of an account entity.
  *
@@ -46,7 +45,7 @@ public class Account implements Serializable
   private Integer branchId;
 
   @OneToMany
-  @JoinTable(name = "account_users", joinColumns = @JoinColumn(name = "account_id"),
+  @JoinTable(name = "account_users", schema = "boss", joinColumns = @JoinColumn(name = "account_id"),
              inverseJoinColumns = @JoinColumn(name = "user_id"))
   private List<User> users;
 
