@@ -42,6 +42,8 @@ public class Card implements Serializable
   private String numberHash;
   @Column(name = "last_four")
   private short lastFour;
+  @Column(name = "user_id")
+  private int userId;
   @Column(name = "account_id")
   private int accountId;
   private long created;

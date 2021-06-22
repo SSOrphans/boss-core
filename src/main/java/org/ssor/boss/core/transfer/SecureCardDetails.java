@@ -27,6 +27,8 @@ public class SecureCardDetails implements Serializable
   private int id;
   private int type;
   private short lastFour;
+  private int userId;
+  private int accountId;
   private long created;
   private long activatedSince;
   private long expirationDate;
@@ -44,6 +46,8 @@ public class SecureCardDetails implements Serializable
     id = card.getId();
     type = card.getType().index();
     lastFour = card.getLastFour();
+    userId = card.getUserId();
+    accountId = card.getAccountId();
     created = card.getCreated();
     activatedSince = card.getActiveSince();
     expirationDate = card.getExpirationDate();

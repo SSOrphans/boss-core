@@ -33,6 +33,7 @@ public class CardTest
     cardA.setId(1);
     cardA.setType(CARD_PLAIN);
     cardA.setNumberHash("1234123412341234");
+    cardA.setUserId(1);
     cardA.setAccountId(1);
     cardA.setCreated(created);
     cardA.setActiveSince(created);
@@ -46,6 +47,7 @@ public class CardTest
     cardB.setId(1);
     cardB.setType(CARD_PLAIN);
     cardB.setNumberHash("1234123412341234");
+    cardB.setUserId(1);
     cardB.setAccountId(1);
     cardB.setCreated(created);
     cardB.setActiveSince(created);
@@ -61,6 +63,7 @@ public class CardTest
     cardC.setId(2);
     cardC.setType(CARD_GOLD);
     cardC.setNumberHash("1234123412341234");
+    cardC.setUserId(2);
     cardC.setAccountId(2);
     cardC.setCreated(createdOther);
     cardC.setActiveSince(createdOther);

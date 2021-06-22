@@ -1,5 +1,6 @@
 package org.ssor.boss.core.configuration;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,6 @@ public class AwsSesConfiguration {
     */
     @Bean
     public AmazonSimpleEmailService amazonSimpleEmailService() {
-        return AmazonSimpleEmailServiceClientBuilder.defaultClient();
+        return AmazonSimpleEmailServiceClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
     }
 }
