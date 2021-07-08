@@ -4,19 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -72,6 +63,11 @@ public class AccountHolder implements Serializable
 						 joinColumns = @JoinColumn(name = "user_id"),
 						 inverseJoinColumns = @JoinColumn(name = "card_id"))
 	private List<Card> cards;
+
+	@OneToOne(mappedBy = "accountHolder", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Settings userSettings;
+
 
 	@Override
 	public int hashCode()

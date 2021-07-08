@@ -6,6 +6,12 @@ INSERT INTO boss.user (type_id, branch_id, username, email, password, created, d
 VALUES (2, 1, 'Monkey', 'me@example.com', 'D8A4D80f7C27F25067E56671B1AA4f7172E3C7418DE442fDF42fF49CF49FE20E',
         0, NULL, TRUE, FALSE);
 
+INSERT INTO boss.settings (user_id, transaction_alerts, balance_alerts)
+VALUES (1,1,2);
+
+INSERT INTO boss.settings (user_id, transaction_alerts, balance_alerts)
+VALUES (2,3,4);
+
 INSERT INTO boss.loan (loan_number, type_id, user_id, branch_id, amount, interest_rate, taken_at, due_by, amount_due)
 VALUES ('1234567890', 1, 1, 1, 50000, 0.02, NOW(), NOW(), 25000);
 

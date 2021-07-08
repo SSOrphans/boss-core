@@ -50,6 +50,17 @@ CREATE TABLE IF NOT EXISTS boss.user
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS boss.settings
+(
+    id          INT          UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+    user_id     INT         NOT NULL,
+    transaction_alerts TINYINT NOT NULL,
+    balance_alerts TINYINT NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES boss.user (id)
+);
+
 CREATE TABLE IF NOT EXISTS boss.confirmation
 (
     id               INT      NOT NULL AUTO_INCREMENT UNIQUE,
