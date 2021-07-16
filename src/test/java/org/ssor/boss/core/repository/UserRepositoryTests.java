@@ -36,7 +36,7 @@ public class UserRepositoryTests
   @Test
   void test_CanGetUserByEmail()
   {
-    final var possibleUser = userRepository.getUserByEmail("me@example.com");
+    final var possibleUser = userRepository.findUserByEmail("me@example.com");
     assertThat(possibleUser.isPresent()).isTrue();
 
     final var user = possibleUser.get();

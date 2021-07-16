@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<User, Integer>
    * @param email The email of the user.
    * @return The obtained user inside of the optional, else an empty optional.
    */
-  Optional<User> getUserByEmail(String email);
+  Optional<User> findUserByEmail(String email);
 
   /**
    * Gets a user by their username or email.
