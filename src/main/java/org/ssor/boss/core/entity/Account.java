@@ -25,7 +25,6 @@ import java.io.Serializable;
 public class Account implements Serializable
 {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
   private Long id;
   @Enumerated
