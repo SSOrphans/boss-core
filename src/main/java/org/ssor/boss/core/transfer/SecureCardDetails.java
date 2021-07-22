@@ -26,7 +26,7 @@ public class SecureCardDetails implements Serializable
 {
   private int id;
   private int type;
-  private short lastFour;
+  private String lastFour;
   private int userId;
   private int accountId;
   private long created;

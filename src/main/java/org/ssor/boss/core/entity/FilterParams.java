@@ -19,7 +19,8 @@ public class FilterParams
 {
   @NonNull
   private String keyword = "";
-  private int filter = 0;
+  @NonNull
+  private String filter = "";
   private int page = 0;
   private int limit = 5;
   @NonNull
