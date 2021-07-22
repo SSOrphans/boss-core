@@ -1,10 +1,9 @@
 package org.ssor.boss.core.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import java.util.Optional;
 
 /**
  * A class to simplify the usage of filtering parameters into a single object instead of multiple function parameters.
@@ -13,18 +12,24 @@ import lombok.NonNull;
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FilterParams
 {
-  @NonNull
-  private String keyword = "";
-  @NonNull
-  private String filter = "";
-  private int page = 0;
-  private int limit = 5;
-  @NonNull
-  private String sortBy = "id";
-  @NonNull
-  private String sortDir = "asc";
+  private final String keyword;
+  private final String filter;
+  private final int page;
+  private final int limit;
+  private final String sortBy;
+  private final String sortDir;
+
+  public FilterParams(Optional<String> keyword, Optional<String> filter, Optional<Integer> page,
+                      Optional<Integer> limit, Optional<String> sortBy, Optional<String> sortDir)
+  {
+    this.keyword = keyword.orElse("");
+    this.filter = filter.orElse("");
+    this.page = page.orElse(0);
+    this.limit = limit.orElse(5);
+    this.sortBy = sortBy.orElse("id");
+    this.sortDir = sortDir.orElse("asc");
+  }
 }
