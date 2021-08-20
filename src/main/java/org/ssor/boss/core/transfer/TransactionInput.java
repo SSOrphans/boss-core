@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 public class TransactionInput
 {
   @NonNull
-  private Integer accountId;
+  private Long accountId;
 
-  @Min(0)
   private Float amount;
   private String merchant;
   private LocalDateTime date;
