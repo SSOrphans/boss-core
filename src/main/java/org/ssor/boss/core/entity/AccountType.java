@@ -10,7 +10,8 @@ public enum AccountType
   ACCOUNT_INVALID,
   ACCOUNT_SAVING,
   ACCOUNT_CHECKING,
-  ACCOUNT_CREDIT;
+  ACCOUNT_CREDIT,
+  ACCOUNT_LOAN;
 
   public int index()
   {
@@ -29,6 +30,8 @@ public enum AccountType
         result = "ACCOUNT_CHECKING"; break;
       case ACCOUNT_CREDIT:
         result = "ACCOUNT_CREDIT"; break;
+      case ACCOUNT_LOAN:
+        result = "ACCOUNT_LOAN"; break;
       default:
         result = "ACCOUNT_INVALID"; break;
     }

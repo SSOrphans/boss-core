@@ -1,6 +1,7 @@
 package org.ssor.boss.core.transfer;
 
 import lombok.Data;
+import org.ssor.boss.core.entity.Account;
 import org.ssor.boss.core.entity.Loan;
 import org.ssor.boss.core.entity.LoanType;
 import javax.validation.constraints.NotNull;
@@ -20,11 +21,11 @@ public class LoanDto implements Serializable
   private LoanType type;
   private int userId;
   private int branchId;
-  private float amount;
+  private float totalAmount;
   private float interestRate;
   private LocalDateTime takenAt;
   private LocalDate dueBy;
-  private float amountDue;
+  private Account account;
 
   public Loan convertToLoanEntity()
   {
@@ -32,12 +33,12 @@ public class LoanDto implements Serializable
     loan.setId(id);
     loan.setType(type);
     loan.setLoanNumber(loanNumber);
-    loan.setAmount(amount);
+    loan.setTotalAmount(totalAmount);
     loan.setUserId(userId);
     loan.setBranchId(branchId);
     loan.setInterestRate(interestRate);
     loan.setTakenAt(takenAt);
-    loan.setAmountDue(amountDue);
+    loan.setAccount(account);
     loan.setDueBy(dueBy);
     return loan;
   }

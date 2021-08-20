@@ -4,14 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.ssor.boss.core.transfer.LoanDto;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,15 +37,18 @@ public class Loan implements Serializable
   private int userId;
   @Column(name = "branch_id")
   private int branchId;
-  private float amount;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "account_id", referencedColumnName = "id")
+  private Account account;
+
+  private float totalAmount;
   @Column(name = "interest_rate")
   private float interestRate;
   @Column(name = "taken_at")
   private LocalDateTime takenAt;
   @Column(name = "due_by")
   private LocalDate dueBy;
-  @Column(name = "amount_due")
-  private float amountDue;
 
   public LoanDto convertToLoanDto()
   {
@@ -61,11 +58,11 @@ public class Loan implements Serializable
     loanDto.setType(type);
     loanDto.setUserId(userId);
     loanDto.setBranchId(branchId);
-    loanDto.setAmount(amount);
+    loanDto.setTotalAmount(totalAmount);
     loanDto.setInterestRate(interestRate);
     loanDto.setTakenAt(takenAt);
     loanDto.setDueBy(dueBy);
-    loanDto.setAmountDue(amountDue);
+    loanDto.setAccount(account);
     return loanDto;
   }
 }
