@@ -2,6 +2,7 @@ package org.ssor.boss.core.transfer;
 
 
 import org.junit.jupiter.api.Test;
+import org.ssor.boss.core.entity.Account;
 import org.ssor.boss.core.entity.Loan;
 import org.ssor.boss.core.entity.LoanType;
 
@@ -74,11 +75,15 @@ public class LoanDtoTest {
     loanDtoA.setType(loanType);
 
     Loan loanB = new Loan();
+    Account accountB = new Account();
+    accountB.setId(1L);
+    accountB.setBalance(1f);
     loanB.setId(1);
     loanB.setLoanNumber("1");
     loanB.setUserId(1);
     loanB.setBranchId(1);
     loanB.setTotalAmount(1f);
+    loanB.setAccount(accountB);
     loanB.setInterestRate(1f);
     loanB.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
     loanB.setDueBy(LocalDate.of(2022, 1, 1));

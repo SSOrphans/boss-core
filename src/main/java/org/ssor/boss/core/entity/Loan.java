@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Describes the information of a loan.
@@ -50,6 +51,19 @@ public class Loan implements Serializable
   @Column(name = "due_by")
   private LocalDate dueBy;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Loan loan = (Loan) o;
+    return id == loan.id && loanNumber.equals(loan.loanNumber) && type == loan.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, loanNumber, type);
+  }
+
   public LoanDto convertToLoanDto()
   {
     LoanDto loanDto = new LoanDto();
@@ -62,7 +76,7 @@ public class Loan implements Serializable
     loanDto.setInterestRate(interestRate);
     loanDto.setTakenAt(takenAt);
     loanDto.setDueBy(dueBy);
-    loanDto.setAccount(account);
+    loanDto.setAmountDue(account.getBalance());
     return loanDto;
   }
 }

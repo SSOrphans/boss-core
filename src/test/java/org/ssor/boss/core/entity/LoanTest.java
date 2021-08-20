@@ -39,6 +39,7 @@ public class LoanTest
     accountC.setId(2L);
 
     loanA.setId(1);
+    loanA.setLoanNumber("123456789");
     loanA.setUserId(1);
     loanA.setBranchId(1);
     loanA.setTotalAmount(1f);
@@ -49,6 +50,7 @@ public class LoanTest
     loanA.setType(loanType);
 
     loanB.setId(1);
+    loanB.setLoanNumber("123456789");
     loanB.setUserId(1);
     loanB.setBranchId(1);
     loanB.setTotalAmount(1f);
@@ -59,6 +61,7 @@ public class LoanTest
     loanB.setType(loanType);
 
     loanC.setId(2);
+    loanC.setLoanNumber("223456789");
     loanC.setUserId(2);
     loanC.setBranchId(2);
     loanC.setTotalAmount(2f);
@@ -78,6 +81,7 @@ public class LoanTest
     LoanType loanType = LoanType.LOAN_STUDENT;
     Account accountA = new Account();
     accountA.setId(1L);
+    accountA.setBalance(1f);
     Loan loanA = new Loan();
     loanA.setId(1);
     loanA.setLoanNumber("1");
@@ -90,15 +94,13 @@ public class LoanTest
     loanA.setDueBy(LocalDate.of(2022, 1, 1));
     loanA.setType(loanType);
 
-    Account accountB = new Account();
-    accountB.setId(1L);
     LoanDto loanDtoB = new LoanDto();
     loanDtoB.setId(1);
     loanDtoB.setLoanNumber("1");
     loanDtoB.setUserId(1);
     loanDtoB.setBranchId(1);
     loanDtoB.setTotalAmount(1f);
-    loanDtoB.setAccount(accountB);
+    loanDtoB.setAmountDue(1f);
     loanDtoB.setInterestRate(1f);
     loanDtoB.setTakenAt(LocalDateTime.of(2021, 1, 1, 0, 0));
     loanDtoB.setDueBy(LocalDate.of(2022, 1, 1));

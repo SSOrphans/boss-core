@@ -22,14 +22,16 @@ public class LoanDto implements Serializable
   private int userId;
   private int branchId;
   private float totalAmount;
+  private float amountDue;
   private float interestRate;
   private LocalDateTime takenAt;
   private LocalDate dueBy;
-  private Account account;
+
 
   public Loan convertToLoanEntity()
   {
     Loan loan = new Loan();
+    Account account = new Account();
     loan.setId(id);
     loan.setType(type);
     loan.setLoanNumber(loanNumber);
@@ -39,6 +41,7 @@ public class LoanDto implements Serializable
     loan.setInterestRate(interestRate);
     loan.setTakenAt(takenAt);
     loan.setAccount(account);
+    loan.getAccount().setBalance(amountDue);
     loan.setDueBy(dueBy);
     return loan;
   }
