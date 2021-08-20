@@ -52,9 +52,6 @@ public class Account implements Serializable
              inverseJoinColumns = @JoinColumn(name = "user_id"))
   private List<User> users;
 
-  @OneToOne(mappedBy = "account")
-  private Loan loan;
-
   @Override
   public boolean equals(Object o)
   {
