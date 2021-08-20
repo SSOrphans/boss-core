@@ -17,8 +17,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   @Query(value = "SELECT t FROM Transaction t WHERE t.accountId = :accountId AND t.id = :id")
   Transaction findTransactionById(Integer id, Long accountId);
 
-  @Query(value = "SELECT t FROM Transaction t WHERE t.pending = true AND t.succeeded = false and t.date between :start and :end order by t.date desc")
-  List<Transaction> findTransactionByPending(LocalDateTime start, LocalDateTime end);
+  @Query(value = "SELECT t FROM Transaction t WHERE t.pending = true AND t.succeeded = false and t.date <= :start  order by t.date desc")
+  List<Transaction> findPendingTransactionsByDate(LocalDateTime start);
 
 
 

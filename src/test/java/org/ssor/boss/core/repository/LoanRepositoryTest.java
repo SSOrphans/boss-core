@@ -30,8 +30,8 @@ public class LoanRepositoryTest
     assertThat(result.getType()).isNotNull().isEqualTo(LOAN_STUDENT);
     assertThat(result.getUserId()).isNotNull().isEqualTo(1);
     assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
-    assertThat(result.getAmount()).isNotNull().isEqualTo(50000);
-    assertThat(result.getAmountDue()).isNotNull().isEqualTo(25000);
+    assertThat(result.getTotalAmount()).isNotNull().isEqualTo(50000);
+    assertThat(result.getAccount().getBalance()).isNotNull().isEqualTo(25000);
     assertThat(result.getDueBy()).isNotNull();
     assertThat(result.getTakenAt()).isNotNull();
     assertThat(result.getInterestRate()).isNotNull().isEqualTo(0.02f);
@@ -46,8 +46,8 @@ public class LoanRepositoryTest
     assertThat(result.getType()).isNotNull().isEqualTo(LOAN_STUDENT);
     assertThat(result.getUserId()).isNotNull().isEqualTo(1);
     assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
-    assertThat(result.getAmount()).isNotNull().isEqualTo(50000);
-    assertThat(result.getAmountDue()).isNotNull().isEqualTo(25000);
+    assertThat(result.getTotalAmount()).isNotNull().isEqualTo(50000);
+    assertThat(result.getAccount().getBalance()).isNotNull().isEqualTo(25000);
     assertThat(result.getDueBy()).isNotNull();
     assertThat(result.getTakenAt()).isNotNull();
     assertThat(result.getInterestRate()).isNotNull().isEqualTo(0.02f);
@@ -66,8 +66,8 @@ public class LoanRepositoryTest
     assertThat(result.getType()).isNotNull().isEqualTo(LOAN_STUDENT);
     assertThat(result.getUserId()).isNotNull().isEqualTo(1);
     assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
-    assertThat(result.getAmount()).isNotNull().isEqualTo(50000);
-    assertThat(result.getAmountDue()).isNotNull().isEqualTo(25000);
+    assertThat(result.getTotalAmount()).isNotNull().isEqualTo(50000);
+    assertThat(result.getAccount().getBalance()).isNotNull().isEqualTo(25000);
     assertThat(result.getDueBy()).isNotNull();
     assertThat(result.getTakenAt()).isNotNull();
     assertThat(result.getInterestRate()).isNotNull().isEqualTo(0.02f);
@@ -86,8 +86,9 @@ public class LoanRepositoryTest
     assertThat(result.getType()).isNotNull().isEqualTo(LOAN_STUDENT);
     assertThat(result.getUserId()).isNotNull().isEqualTo(1);
     assertThat(result.getBranchId()).isNotNull().isEqualTo(1);
-    assertThat(result.getAmount()).isNotNull().isEqualTo(50000);
-    assertThat(result.getAmountDue()).isNotNull().isEqualTo(25000);
+    assertThat(result.getTotalAmount()).isNotNull().isEqualTo(50000);
+    assertThat(result.getAccount()).isNotNull();
+    assertThat(result.getAccount().getBalance()).isNotNull().isEqualTo(25000);
     assertThat(result.getDueBy()).isNotNull();
     assertThat(result.getTakenAt()).isNotNull();
     assertThat(result.getInterestRate()).isNotNull().isEqualTo(0.02f);
