@@ -107,13 +107,15 @@ class AccountServiceTest
   @Test
   void test_canCreateAccount() throws UserNotFoundException, AccountCreationException, AccountTypeNotFoundException
   {
-
+    Account expectedAccount  = new Account();
+    expectedAccount.setId(1L);
     Mockito.doReturn(Optional.of(stubbedUser)).when(userRepository).findById(Mockito.anyInt());
-    Mockito.doReturn(new Account()).when(accountRepository).save(Mockito.any(Account.class));
+    Mockito.doReturn(expectedAccount).when(accountRepository).save(Mockito.any(Account.class));
 
-    ResponseEntity<String> rs = new ResponseEntity("New account created.",HttpStatus.CREATED);
 
-    assertEquals(rs, accountService.createAccount(stubbedAccountDto));
+    ResponseEntity<String> rs = new ResponseEntity(expectedAccount,HttpStatus.CREATED);
+    ResponseEntity<Account> actualAccount = accountService.createAccount(stubbedAccountDto);
+    assertEquals(rs, actualAccount);
   }
 
   @Test

@@ -58,7 +58,7 @@ public class AccountService
 
   }
 
-  public ResponseEntity<String> createAccount(AccountToCreateTransfer accountParams) throws
+  public ResponseEntity<Account> createAccount(AccountToCreateTransfer accountParams) throws
           UserNotFoundException, AccountCreationException
   {
 
@@ -76,17 +76,17 @@ public class AccountService
     accountEntity.setOpened(LocalDate.now());
     accountEntity.setConfirmed(false);
     accountEntity.setActive(false);
-
+    Account account;
     try
     {
-      accountRepository.save(accountEntity);
+      account = accountRepository.save(accountEntity);
     }
     catch (DataIntegrityViolationException e)
     {
       throw new AccountCreationException();
     }
 
-    return new ResponseEntity<>("New account created.",HttpStatus.CREATED);
+    return new ResponseEntity<>(account,HttpStatus.CREATED);
   }
 
   public ResponseEntity<String> createAccountPayment(TransactionInput transactionInput) {
