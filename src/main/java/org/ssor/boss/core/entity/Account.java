@@ -33,7 +33,10 @@ public class Account implements Serializable
   private AccountType accountType;
   @Column(name = "name")
   private String name;
+  @Column(name = "balance")
   private Float balance;
+  @Column(name = "pending_balance")
+  private Float pendingBalance;
   @Column(name = "opened")
   private LocalDate opened;
   @Column(name = "closed")

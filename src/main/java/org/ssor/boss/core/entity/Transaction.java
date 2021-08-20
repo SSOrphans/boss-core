@@ -41,7 +41,7 @@ public class Transaction
   @Column(name = "type_id")
   private TransactionType type;
   @Column(name = "account_id")
-  private Integer accountId;
+  private Long accountId;
   @Column(name = "overdraft_id")
   private Integer overdraftId;
   @Column(name = "atm_transaction_id")

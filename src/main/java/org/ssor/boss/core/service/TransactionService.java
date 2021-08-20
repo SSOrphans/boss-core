@@ -52,18 +52,4 @@ public class TransactionService
 
     return new TransactionListTransfer(transactionTransfers, transactions.getNumber() + 1 ,transactions.getTotalPages(), options.getLimit());
   }
-
-  public void createTransaction(TransactionInput transactionInput)
-  {
-    Transaction transaction = new Transaction();
-    transaction.setAccountId(transactionInput.getAccountId());
-    transaction.setAmount(transactionInput.getAmount());
-    transaction.setDate(LocalDateTime.now());
-    transaction.setMerchantName(transactionInput.getMerchant());
-    transaction.setType(TransactionType.valueOf(transactionInput.getType()));
-
-    transaction.setPending(true);
-    transaction.setSucceeded(false);
-    transactionRepository.save(transaction);
-  }
 }

@@ -8,11 +8,19 @@ import org.springframework.stereotype.Repository;
 import org.ssor.boss.core.entity.Transaction;
 import org.ssor.boss.core.entity.TransactionType;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>
 {
   @Query(value = "SELECT t FROM Transaction t WHERE t.accountId = :accountId AND t.id = :id")
   Transaction findTransactionById(Integer id, Long accountId);
+
+  @Query(value = "SELECT t FROM Transaction t WHERE t.pending = true AND t.succeeded = false and t.date between :start and :end order by t.date desc")
+  List<Transaction> findTransactionByPending(LocalDateTime start, LocalDateTime end);
+
+
 
   @Query(value = "SELECT t FROM Transaction t " +
                  "WHERE t.accountId = :accountId " +
