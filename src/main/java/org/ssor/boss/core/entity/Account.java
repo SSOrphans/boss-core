@@ -50,6 +50,9 @@ public class Account implements Serializable
   @Column(nullable = false)
   private Float balance;
 
+  @Column(name = "pending_balance", nullable = false)
+  private Float pendingBalance;
+
   @Column(nullable = false)
   private LocalDate opened;
 

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.ssor.boss.core.entity.User;
 import org.ssor.boss.core.entity.UserType;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * Provides details about a user in a safe manner.
