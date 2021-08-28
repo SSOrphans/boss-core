@@ -6,6 +6,7 @@ import org.ssor.boss.core.transfer.TransactionTransfer;
 
 import java.util.List;
 
+// TODO: move this to transfer.
 @RequiredArgsConstructor
 @Getter
 public class TransactionListTransfer

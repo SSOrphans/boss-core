@@ -6,6 +6,7 @@ import org.ssor.boss.core.entity.TransactionType;
 
 import java.util.Optional;
 
+// TODO: move this to transfer
 @Getter
 public class TransactionOptions
 {
@@ -23,7 +24,7 @@ public class TransactionOptions
     this.sortBy = length > 1 ? Optional.ofNullable(options[1]).orElse("date") : "date";
     this.filter = length > 2
                   ? TransactionType.valueOf(Optional.ofNullable(options[2]).orElse("TRANSACTION_INVALID"))
-                  : TransactionType.TRANSACTION_INVALID;
+                  : TransactionType.UNDEFINED;
     this.offset = length > 3 ? Integer.parseInt(Optional.ofNullable(options[3]).orElse("0")) : 0;
     this.limit = length > 4 ? Integer.parseInt(Optional.ofNullable(options[4]).orElse("10")) : 10;
     String directionToggle = length > 5 ? Optional.ofNullable(options[5]).orElse("DESC") : "DESC";

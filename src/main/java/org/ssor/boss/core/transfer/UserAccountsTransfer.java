@@ -2,7 +2,7 @@ package org.ssor.boss.core.transfer;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.ssor.boss.core.entity.Account;
+import org.ssor.boss.core.entity.AccountEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class UserAccountsTransfer
     return Objects.hash(accounts);
   }
 
-  public void setAccountsFromEntity(List<Account> entities){
+  public void setAccountsFromEntity(List<AccountEntity> entities){
     accounts = new ArrayList<>();
     entities.forEach(
         entity -> {
