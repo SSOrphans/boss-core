@@ -24,7 +24,7 @@ public class PaymentConfirmationService
   @Autowired
   AccountRepository accountRepository;
 
-  @Scheduled(cron = "* * * ? * *")//"0 0 0 ? * MON,TUE,WED,THU,FRI *")
+  //@Scheduled(cron = "* * * ? * *")//"0 0 0 ? * MON,TUE,WED,THU,FRI *")
   @Transactional
   public void confirmPaymentTransaction(){
     LocalDateTime startDate = LocalDateTime.now().minusDays(1);

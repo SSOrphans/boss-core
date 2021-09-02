@@ -47,6 +47,8 @@ public class Account implements Serializable
   @Column(name = "branch_id")
   private Integer branchId;
 
+  //private float cashbackRate;
+
   @OneToMany
   @JoinTable(name = "account_users", schema = "boss", joinColumns = @JoinColumn(name = "account_id"),
              inverseJoinColumns = @JoinColumn(name = "user_id"))

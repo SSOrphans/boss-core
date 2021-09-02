@@ -51,6 +51,8 @@ public class Transaction
   private Float amount;
   @Column(name = "new_balance")
   private Float newBalance;
+  @Column(name = "cashback")
+  private Float cashback;
   private LocalDateTime date;
   private Boolean succeeded;
   private Boolean pending;

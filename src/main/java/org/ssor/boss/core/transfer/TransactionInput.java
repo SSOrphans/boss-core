@@ -20,5 +20,4 @@ public class TransactionInput
   private String merchant;
   private LocalDateTime date;
   private String type;
-
 }

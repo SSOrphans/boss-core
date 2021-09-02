@@ -16,6 +16,7 @@ public class TransactionTransfer
   private Integer id;
   private Float amount;
   private Float balance;
+  private Float cashback;
   private String merchant;
   private LocalDateTime date;
   private String type;
@@ -30,6 +31,7 @@ public class TransactionTransfer
   public void setEntity(Transaction transaction)
   {
     this.amount = transaction.getAmount();
+    this.cashback = transaction.getCashback();
     this.balance = transaction.getNewBalance();
     this.merchant = transaction.getMerchantName();
     this.date = transaction.getDate();
