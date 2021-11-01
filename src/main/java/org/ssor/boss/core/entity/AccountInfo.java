@@ -9,6 +9,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 /**
  * Embeddable account entity information.
@@ -23,24 +25,24 @@ public class AccountInfo implements Serializable {
 	private String name;
 	private float balance;
 	private float pendingBalance;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime opened;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime closed;
-	private byte flags;
+	private boolean confirmed;
+	private boolean enabled;
+	private boolean locked;
 
 	/**
 	 * Default constructs the account info.
 	 */
 	public AccountInfo() {
 		name = null;
-		balance = 0;
-		pendingBalance = 0;
-		opened = LocalDateTime.now();
+		balance = 0f;
+		pendingBalance = 0f;
+		opened = LocalDateTime.now(ZoneOffset.UTC);
 		closed = null;
-		flags = 0;
+		confirmed = false;
+		enabled = false;
+		locked = false;
 	}
 
 	/**
@@ -50,10 +52,12 @@ public class AccountInfo implements Serializable {
 	 */
 	public AccountInfo(@NonNull String name) {
 		this.name = name;
-		balance = 0;
-		pendingBalance = 0;
-		opened = LocalDateTime.now();
+		balance = 0f;
+		pendingBalance = 0f;
+		opened = LocalDateTime.now(ZoneOffset.UTC);
 		closed = null;
-		flags = 0;
+		confirmed = false;
+		enabled = true;
+		locked = false;
 	}
 }

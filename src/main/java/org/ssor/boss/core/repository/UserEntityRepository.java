@@ -1,6 +1,7 @@
 package org.ssor.boss.core.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 import org.ssor.boss.core.entity.UserEntity;
 import java.util.Optional;

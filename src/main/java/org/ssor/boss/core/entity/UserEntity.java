@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -14,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,7 +37,7 @@ import java.util.Objects;
 @Setter
 @Entity(name = "UserEntity")
 @Table(schema = "boss", name = "user")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false, updatable = false)
@@ -44,9 +49,6 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false)
 	private long branch; // TODO: create branch entity.
 
-	@Column(nullable = false)
-	private byte flags;
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "username", column = @Column(name = "username", unique = true, nullable = false)),
@@ -54,7 +56,10 @@ public class UserEntity implements Serializable {
 			@AttributeOverride(name = "password", column = @Column(name = "password", nullable = false)),
 			@AttributeOverride(name = "created", column = @Column(name = "created", nullable = false, updatable = false)),
 			@AttributeOverride(name = "deleted", column = @Column(name = "deleted", insertable = false)),
-			@AttributeOverride(name = "settings.transactionAlerts", column = @Column(name = "transaction_alerts")),
+			@AttributeOverride(name = "confirmed", column = @Column(name = "confirmed", nullable = false)),
+			@AttributeOverride(name = "enabled", column = @Column(name = "enabled", nullable = false)),
+			@AttributeOverride(name = "locked", column = @Column(name = "locked", nullable = false))
+,			@AttributeOverride(name = "settings.transactionAlerts", column = @Column(name = "transaction_alerts")),
 			@AttributeOverride(name = "settings.balanceAlerts", column = @Column(name = "balance_alerts"))
 	})
 	private UserProfile profile;
@@ -81,7 +86,6 @@ public class UserEntity implements Serializable {
 		id = null;
 		type = UserType.USER_UNKNOWN;
 		branch = -1L;
-		flags = 0;
 		profile = null;
 		userInfo = null;
 	}
@@ -97,7 +101,6 @@ public class UserEntity implements Serializable {
 		this.id = null;
 		this.type = type;
 		this.branch = branch;
-		this.flags = 0;
 		this.profile = profile;
 		this.userInfo = null;
 	}
@@ -124,5 +127,40 @@ public class UserEntity implements Serializable {
 		result = 31 * result + profile.getEmail().hashCode();
 		result = 31 * result + userInfo.getIdentification().hashCode();
 		return result;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(type.name()));
+	}
+
+	@Override
+	public String getPassword() {
+		return profile.getPassword();
+	}
+
+	@Override
+	public String getUsername() {
+		return profile.getUsername();
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return !profile.isLocked();
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return profile.isEnabled();
 	}
 }

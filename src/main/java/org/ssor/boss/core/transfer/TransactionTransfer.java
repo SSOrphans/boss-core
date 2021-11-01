@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Setter
 @EqualsAndHashCode
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class TransactionTransfer {
 	private long id;
 	private Float amount;

@@ -1,18 +1,7 @@
 package org.ssor.boss.core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.ssor.boss.core.entity.AccountEntity;
-import org.ssor.boss.core.entity.TransactionEntity;
-import org.ssor.boss.core.repository.AccountRepository;
-import org.ssor.boss.core.repository.TransactionRepository;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 // TODO: fix all of this.
 @Service

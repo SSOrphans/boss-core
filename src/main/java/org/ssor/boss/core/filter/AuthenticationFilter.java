@@ -13,7 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.ssor.boss.core.entity.User;
+import org.ssor.boss.core.entity.UserEntity;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +73,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter
   {
     log.debug("Authentication successful");
     final var date = new Date(Instant.now().plusSeconds(8640000).toEpochMilli());
-    final var user = (User)authResult.getPrincipal();
+    final var user = (UserEntity)authResult.getPrincipal();
     log.debug("Principal: " + user.toString());
     final var authorities = user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                                 .collect(Collectors.toList());

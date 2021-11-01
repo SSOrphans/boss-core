@@ -52,6 +52,9 @@ public class UserProfile implements Serializable {
 
 	private long created;
 	private Long deleted;
+	private boolean confirmed;
+	private boolean enabled;
+	private boolean locked;
 
 	@Embedded
 	private UserSettings settings;
@@ -65,6 +68,9 @@ public class UserProfile implements Serializable {
 		password = "";
 		created = 0;
 		deleted = null;
+		confirmed = false;
+		enabled = false;
+		locked = false;
 		settings = null;
 	}
 
@@ -84,6 +90,9 @@ public class UserProfile implements Serializable {
 		this.password = password;
 		this.created = created;
 		this.deleted = null;
+		this.confirmed = false;
+		this.enabled = true;
+		this.locked = false;
 		this.settings = settings;
 	}
 }

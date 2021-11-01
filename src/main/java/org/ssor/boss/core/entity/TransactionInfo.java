@@ -23,8 +23,6 @@ public class TransactionInfo implements Serializable {
 	private String merchant;
 	private float amount;
 	private float newBalance;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime date;
 	private byte flags; // TODO: write transaction flags utility.
 

@@ -20,11 +20,7 @@ import java.time.LocalDateTime;
 public class LoanInfo implements Serializable {
 	private float total;
 	private float interest;
-
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime takenAt;
-
-	@Temporal(TemporalType.DATE)
 	private LocalDate dueBy;
 
 	/**

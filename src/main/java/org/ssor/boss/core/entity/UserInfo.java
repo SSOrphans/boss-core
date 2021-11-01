@@ -30,8 +30,6 @@ public class UserInfo implements Serializable {
 
 	@Length(max = 64)
 	private String identification;
-
-	@Temporal(TemporalType.DATE)
 	private LocalDate dateOfBirth;
 
 	@Embedded

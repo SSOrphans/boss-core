@@ -1,118 +1,91 @@
 package org.ssor.boss.core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.ssor.boss.core.entity.AccountEntity;
+import org.ssor.boss.core.entity.AccountInfo;
+import org.ssor.boss.core.entity.AccountType;
 import org.ssor.boss.core.exception.AccountCreationException;
 import org.ssor.boss.core.exception.NoAccountsFoundException;
 import org.ssor.boss.core.exception.UserNotFoundException;
-import org.ssor.boss.core.repository.AccountRepository;
-import org.ssor.boss.core.entity.AccountType;
-import org.ssor.boss.core.entity.TransactionEntity;
-import org.ssor.boss.core.entity.TransactionType;
-import org.ssor.boss.core.repository.TransactionRepository;
+import org.ssor.boss.core.repository.AccountEntityRepository;
 import org.ssor.boss.core.repository.UserEntityRepository;
-import org.ssor.boss.core.transfer.AccountToCreateTransfer;
-import org.ssor.boss.core.transfer.AccountTransfer;
-import org.ssor.boss.core.transfer.TransactionInput;
-import org.ssor.boss.core.transfer.UserAccountsTransfer;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.ssor.boss.core.transfer.AccountCreateRequest;
+import org.ssor.boss.core.transfer.SecureAccountDetails;
+import org.ssor.boss.core.transfer.ServiceResponse;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-// TODO: fix all of this.
+/**
+ * A service designed for implementing the bulk of functionality for its respective controller.
+ *
+ * @author John Christman
+ * @author Bermond Jon Batistiana
+ */
 @Service
-public class AccountService
-{
-//  @Autowired
-//  AccountRepository accountRepository;
-//  @Autowired
-//  TransactionRepository transactionRepository;
-//  @Autowired
-//  UserEntityRepository userEntityRepository;
-//
-//  public UserAccountsTransfer getAccounts(Integer userId) throws NoAccountsFoundException
-//  {
-//    List<AccountEntity> accountEntityEntities = accountRepository.findAccountsByUser(userId);
-//    if (accountEntityEntities.isEmpty())
-//      throw new NoAccountsFoundException();
-//
-//    var userAccountsDTO = new UserAccountsTransfer();
-//    userAccountsDTO.setAccountsFromEntity(accountEntityEntities);
-//
-//    return userAccountsDTO;
-//  }
-//
-//  public AccountTransfer getAccount(Integer userId, Long accountId) throws NoAccountsFoundException
-//  {
-//    Optional<AccountEntity> account = accountRepository.findAccountByIdAndUserId(userId, accountId);
-//    if (account.isEmpty())
-//      throw new NoAccountsFoundException();
-//
-//    return new AccountTransfer(account.get());
-//
-//  }
-//
-//  public ResponseEntity<AccountEntity> createAccount(AccountToCreateTransfer accountParams) throws
-//          UserNotFoundException, AccountCreationException
-//  {
-//
-//    Long id =Math.abs(UUID.randomUUID().getLeastSignificantBits() % 10000000000000000L);
-//    var user = userEntityRepository.findById(accountParams.getUserId()).orElseThrow(UserNotFoundException::new);
-//    var accountType = AccountType.values()[accountParams.getAccountType()];
-//
-//    var accountEntity = new AccountEntity();
-//    accountEntity.setId(id);
-//    accountEntity.setAccountType(accountType);
-//    accountEntity.setUsers(List.of(user));
-//    accountEntity.setBranchId(accountParams.getBranchId());
-//    accountEntity.setName(accountType.name().substring(8));
-//    accountEntity.setBalance(0f);
-//    accountEntity.setOpened(LocalDate.now());
-//    accountEntity.setConfirmed(false);
-//    accountEntity.setActive(false);
-//    AccountEntity account;
-//    try
-//    {
-//      account = accountRepository.save(accountEntity);
-//    }
-//    catch (DataIntegrityViolationException e)
-//    {
-//      throw new AccountCreationException();
-//    }
-//
-//    return new ResponseEntity<>(account,HttpStatus.CREATED);
-//  }
-//
-//  public ResponseEntity<String> createAccountPayment(TransactionInput transactionInput) {
-//
-//    Optional<AccountEntity> accountOpt = accountRepository.findById(transactionInput.getAccountId());
-//
-//    if(accountOpt.isEmpty())
-//      return new ResponseEntity<>("No account found: " + transactionInput.getAccountId(),HttpStatus.NOT_FOUND);
-//
-//    AccountEntity accountEntity = accountOpt.get();
-//
-//    accountEntity.setBalance(accountEntity.getBalance() + transactionInput.getAmount());
-//
-//    var transaction = new TransactionEntity();
-//    transaction.setAccountId(transactionInput.getAccountId());
-//    transaction.setAmount(transactionInput.getAmount());
-//    transaction.setDate(LocalDateTime.now());
-//    transaction.setMerchantName(transactionInput.getMerchant());
-//    transaction.setType(TransactionType.PAYMENT);
-//    transaction.setNewBalance(accountEntity.getBalance());
-//
-//    transaction.setPending(true);
-//    transaction.setSucceeded(false);
-//    transactionRepository.save(transaction);
-//    accountRepository.save(accountEntity);
-//
-//    return new ResponseEntity<>("Payment created.",HttpStatus.CREATED);
-//  }
+@RequiredArgsConstructor
+public class AccountService {
+	private final AccountEntityRepository accountRepository;
+	private final UserEntityRepository userRepository;
+
+	/**
+	 * Creates a new account given the account creation parameters.
+	 *
+	 * @param accountParams The parameters necessary to create an account.
+	 * @return The service response carrying the account details of the created account.
+	 * @throws UserNotFoundException    If the user to create the account for doesn't exist.
+	 * @throws AccountCreationException If the account could not be created correctly.
+	 */
+	public ServiceResponse<SecureAccountDetails> createAccount(AccountCreateRequest accountParams)
+			throws UserNotFoundException, AccountCreationException {
+		var id = Math.abs(UUID.randomUUID().getLeastSignificantBits() % 10000000000000000L);
+		var user = userRepository.findById(accountParams.getUserIds()[0]).orElseThrow(UserNotFoundException::new);
+		var accountType = AccountType.values()[accountParams.getAccountType()];
+		var accountInfo = new AccountInfo(accountType.name());
+		var accountEntity = new AccountEntity(id, accountType, 1, accountInfo);
+		accountEntity.getUsers().add(user);
+
+		try {
+			accountRepository.save(accountEntity);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new AccountCreationException();
+		}
+
+		return ServiceResponse.success(new SecureAccountDetails(accountEntity));
+	}
+
+	/**
+	 * Gets all the accounts of a user with the provided ID.
+	 *
+	 * @param userId The ID of the user to get the accounts for.
+	 * @return The service response carrying the list of account details for the user.
+	 * @throws NoAccountsFoundException If no accounts where found for the user.
+	 */
+	public ServiceResponse<List<SecureAccountDetails>> getAccounts(long userId)
+			throws NoAccountsFoundException {
+		var accountEntities = accountRepository.findAccountsByUser(userId);
+		if (accountEntities.isEmpty())
+			throw new NoAccountsFoundException();
+
+		var converted = accountEntities.stream().map(SecureAccountDetails::new).collect(Collectors.toList());
+		return ServiceResponse.success(converted);
+	}
+
+	/**
+	 * Gets a single account for a user.
+	 *
+	 * @param userId    The ID of the user to fetch the account of.
+	 * @param accountId The ID of the account to fetch.
+	 * @return The service response carrying the account details for the found account.
+	 * @throws NoAccountsFoundException If no account was found for the user.
+	 */
+	public ServiceResponse<SecureAccountDetails> getAccount(long userId, Long accountId)
+			throws NoAccountsFoundException {
+		var accountEntity = accountRepository.findAccountByIdAndUserId(userId, accountId)
+		                                     .orElseThrow(NoAccountsFoundException::new);
+		return ServiceResponse.success(new SecureAccountDetails(accountEntity));
+	}
 }
